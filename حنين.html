@@ -1,0 +1,2873 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>تحدي الحاسب | منصة مبرمج المستقبل</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js">
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;800;900&display=swap" rel="stylesheet" />
+    <style>
+        /* ===== STYLES – تصميم فاتح مع إضاءة خفيفة ===== */
+        :root {
+            --cs-bg: #f4f8ff;
+            --cs-surface: #ffffff;
+            --cs-surface-dim: #f0f4fe;
+            --cs-primary: #5b7cfa;
+            --cs-primary-light: #eef3ff;
+            --cs-secondary: #a78bfa;
+            --cs-accent: #4fc3f7;
+            --cs-accent-dim: rgba(79, 195, 247, 0.15);
+            --cs-gold: #fbbf24;
+            --cs-green: #4ade80;
+            --cs-red: #f87171;
+            --cs-text: #1e293b;
+            --cs-text-muted: #64748b;
+            --cs-text-light: #94a3b8;
+            --cs-border: rgba(0, 0, 0, 0.06);
+            --cs-border-strong: rgba(0, 0, 0, 0.12);
+            --cs-shadow: 0 8px 30px rgba(91, 124, 250, 0.10);
+            --cs-shadow-glow: 0 8px 40px rgba(79, 195, 247, 0.25);
+            --cs-radius: 24px;
+            --cs-radius-sm: 14px;
+            --font: 'Tajawal', sans-serif;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: var(--font);
+            background: var(--cs-bg);
+            color: var(--cs-text);
+            min-height: 100vh;
+            background-image: radial-gradient(ellipse at 10% 20%, rgba(91, 124, 250, 0.08) 0%, transparent 55%),
+                radial-gradient(ellipse at 90% 80%, rgba(79, 195, 247, 0.06) 0%, transparent 50%),
+                linear-gradient(145deg, #f4f8ff 0%, #eef3fe 100%);
+            background-attachment: fixed;
+            display: flex;
+            flex-direction: column;
+        }
+
+        [hidden] {
+            display: none !important;
+        }
+
+        /* ===== HEADER ===== */
+        .game-header {
+            width: min(1320px, calc(100% - 34px));
+            margin: 14px auto 0;
+            padding: 10px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: rgba(255, 255, 255, 0.75);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--cs-border);
+            border-radius: var(--cs-radius);
+            box-shadow: var(--cs-shadow);
+            flex-shrink: 0;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .game-brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .brand-logo {
+            font-size: 2.2rem;
+            background: linear-gradient(135deg, var(--cs-primary), var(--cs-secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .game-brand strong {
+            font-size: 1.8rem;
+            color: var(--cs-text);
+        }
+
+        .game-brand strong span {
+            color: var(--cs-primary);
+        }
+
+        .game-brand small {
+            font-size: .7rem;
+            color: var(--cs-text-muted);
+            display: block;
+            margin-top: -4px;
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .player-chip {
+            padding: 8px 16px;
+            border-radius: 999px;
+            background: var(--cs-accent-dim);
+            border: 1px solid rgba(79, 195, 247, 0.25);
+            font-weight: 700;
+            font-size: .85rem;
+            color: var(--cs-primary);
+            cursor: default;
+        }
+
+        .sound-button {
+            width: 40px;
+            height: 40px;
+            border-radius: var(--cs-radius-sm);
+            border: 1px solid var(--cs-border);
+            background: rgba(255, 255, 255, 0.6);
+            color: var(--cs-text-muted);
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: .2s;
+        }
+
+        .sound-button:hover {
+            background: var(--cs-primary-light);
+            border-color: var(--cs-primary);
+            color: var(--cs-primary);
+        }
+
+        .login-btn,
+        .back-link {
+            padding: 9px 16px;
+            border-radius: var(--cs-radius-sm);
+            background: rgba(255, 255, 255, 0.5);
+            color: var(--cs-text-muted);
+            font-weight: 700;
+            font-size: .85rem;
+            border: 1px solid var(--cs-border);
+            cursor: pointer;
+            font-family: var(--font);
+            transition: .2s;
+            text-decoration: none;
+        }
+
+        .login-btn {
+            background: var(--cs-primary-light);
+            color: var(--cs-primary);
+            border-color: rgba(91, 124, 250, 0.2);
+        }
+
+        .login-btn:hover {
+            background: rgba(91, 124, 250, 0.12);
+        }
+
+        .login-btn.logged-in {
+            background: rgba(248, 113, 113, 0.08);
+            color: var(--cs-red);
+            border-color: rgba(248, 113, 113, 0.2);
+        }
+
+        .login-btn.logged-in:hover {
+            background: rgba(248, 113, 113, 0.15);
+        }
+
+        .back-link:hover {
+            background: rgba(0, 0, 0, 0.04);
+            color: var(--cs-text);
+        }
+
+        /* ===== LOGIN MODAL ===== */
+        .login-modal-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(244, 248, 255, 0.92);
+            backdrop-filter: blur(14px);
+            padding: 20px;
+        }
+
+        .login-modal-container {
+            max-width: 480px;
+            width: 100%;
+            background: #ffffff;
+            border-radius: var(--cs-radius);
+            padding: 36px 32px 40px;
+            border: 1px solid var(--cs-border);
+            box-shadow: var(--cs-shadow-glow);
+            position: relative;
+        }
+
+        .login-modal-container h2 {
+            font-size: 1.8rem;
+            color: var(--cs-text);
+            margin-bottom: 4px;
+        }
+
+        .login-modal-container p {
+            color: var(--cs-text-muted);
+            margin-bottom: 24px;
+            font-size: .95rem;
+        }
+
+        .login-modal-container label {
+            display: block;
+            color: var(--cs-text-muted);
+            font-size: .9rem;
+            font-weight: 700;
+            margin-top: 16px;
+            margin-bottom: 4px;
+        }
+
+        .login-modal-container input {
+            width: 100%;
+            padding: 12px 16px;
+            border-radius: var(--cs-radius-sm);
+            border: 1px solid var(--cs-border);
+            background: var(--cs-bg);
+            color: var(--cs-text);
+            font-size: 1rem;
+            font-family: var(--font);
+            transition: .2s;
+        }
+
+        .login-modal-container input:focus {
+            outline: none;
+            border-color: var(--cs-primary);
+            background: #ffffff;
+            box-shadow: 0 0 0 4px rgba(91, 124, 250, 0.08);
+        }
+
+        .login-modal-container .modal-actions {
+            display: flex;
+            gap: 12px;
+            margin-top: 28px;
+            justify-content: flex-end;
+        }
+
+        .login-modal-container .modal-actions button {
+            padding: 10px 28px;
+            border-radius: var(--cs-radius-sm);
+            border: 0;
+            font-weight: 800;
+            cursor: pointer;
+            font-family: var(--font);
+            font-size: .95rem;
+            transition: .2s;
+        }
+
+        .login-modal-container .modal-actions .btn-save {
+            background: linear-gradient(135deg, var(--cs-primary), #4a6cf7);
+            color: white;
+            box-shadow: 0 4px 20px rgba(91, 124, 250, 0.3);
+        }
+
+        .login-modal-container .modal-actions .btn-save:hover {
+            transform: scale(1.03);
+        }
+
+        .login-modal-container .modal-actions .btn-cancel {
+            background: transparent;
+            color: var(--cs-text-muted);
+            border: 1px solid var(--cs-border);
+        }
+
+        .login-modal-close {
+            position: absolute;
+            top: 16px;
+            left: 20px;
+            background: none;
+            border: none;
+            color: var(--cs-text-muted);
+            font-size: 1.6rem;
+            cursor: pointer;
+            transition: .2s;
+            font-family: var(--font);
+        }
+
+        .login-modal-close:hover {
+            color: var(--cs-text);
+            transform: rotate(90deg);
+        }
+
+        /* ===== SHELL & SCREENS ===== */
+        .game-shell {
+            width: min(1320px, calc(100% - 34px));
+            margin: 22px auto 20px;
+            flex: 1;
+        }
+
+        .screen {
+            display: none;
+            animation: fadeSlide .4s ease;
+        }
+
+        .screen.active {
+            display: block;
+        }
+
+        @keyframes fadeSlide {
+            0% {
+                opacity: 0;
+                transform: translateY(18px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* ===== SETUP ===== */
+        .setup-screen.active {
+            max-width: 960px;
+            margin-inline: auto;
+            padding: 34px 40px 48px;
+            border-radius: var(--cs-radius);
+            background: rgba(255, 255, 255, 0.75);
+            backdrop-filter: blur(16px);
+            border: 1px solid var(--cs-border);
+            box-shadow: var(--cs-shadow);
+        }
+
+        .setup-copy .eyebrow {
+            display: inline-block;
+            font-size: .8rem;
+            color: var(--cs-primary);
+            letter-spacing: 1px;
+            background: var(--cs-primary-light);
+            padding: 2px 16px;
+            border-radius: 99px;
+            margin-bottom: 10px;
+        }
+
+        .setup-copy h1 {
+            font-size: clamp(2.2rem, 4vw, 3.8rem);
+            font-weight: 900;
+            color: var(--cs-text);
+        }
+
+        .setup-copy h1 em {
+            background: linear-gradient(135deg, var(--cs-primary), var(--cs-secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-style: normal;
+        }
+
+        .setup-copy>p {
+            color: var(--cs-text-muted);
+            font-size: 1.05rem;
+            margin: 8px 0 28px;
+            max-width: 600px;
+        }
+
+        .setup-panel {
+            background: rgba(255, 255, 255, 0.5);
+            border-radius: var(--cs-radius);
+            padding: 24px 28px;
+            border: 1px solid var(--cs-border);
+        }
+
+        .setup-panel h2 {
+            font-size: 1.1rem;
+            color: var(--cs-text);
+            margin-bottom: 14px;
+            margin-top: 16px;
+        }
+
+        .setup-panel h2:first-of-type {
+            margin-top: 0;
+        }
+
+        /* Grade grid */
+        .grade-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 14px;
+            margin-bottom: 10px;
+        }
+
+        .grade-card {
+            padding: 16px 14px;
+            border-radius: var(--cs-radius-sm);
+            border: 2px solid transparent;
+            background: var(--cs-surface);
+            text-align: center;
+            cursor: pointer;
+            font-weight: 700;
+            color: var(--cs-text-muted);
+            transition: .3s;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
+        }
+
+        .grade-card .grade-icon {
+            font-size: 2.2rem;
+            display: block;
+            margin-bottom: 4px;
+        }
+
+        .grade-card:hover {
+            background: var(--cs-primary-light);
+            color: var(--cs-text);
+            border-color: var(--cs-border-strong);
+        }
+
+        .grade-card.selected {
+            border-color: var(--cs-primary);
+            background: var(--cs-primary-light);
+            color: var(--cs-primary);
+            box-shadow: 0 0 0 4px rgba(91, 124, 250, 0.08);
+        }
+
+        /* Term grid */
+        .term-grid {
+            display: flex;
+            gap: 14px;
+            margin-bottom: 16px;
+            flex-wrap: wrap;
+        }
+
+        .term-card {
+            padding: 12px 28px;
+            border-radius: var(--cs-radius-sm);
+            border: 2px solid var(--cs-border);
+            background: var(--cs-surface);
+            font-weight: 700;
+            color: var(--cs-text-muted);
+            cursor: pointer;
+            transition: .3s;
+            flex: 1;
+            text-align: center;
+            min-width: 100px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
+        }
+
+        .term-card:hover {
+            background: var(--cs-primary-light);
+            color: var(--cs-text);
+            border-color: var(--cs-border-strong);
+        }
+
+        .term-card.selected {
+            border-color: var(--cs-secondary);
+            background: rgba(167, 139, 250, 0.10);
+            color: var(--cs-secondary);
+        }
+
+        /* Unit grid */
+        .unit-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+
+        .unit-card {
+            padding: 14px 16px;
+            border-radius: var(--cs-radius-sm);
+            border: 1px solid var(--cs-border);
+            background: var(--cs-surface);
+            font-weight: 700;
+            color: var(--cs-text-muted);
+            cursor: pointer;
+            transition: .3s;
+            text-align: center;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
+        }
+
+        .unit-card:hover {
+            background: var(--cs-primary-light);
+            color: var(--cs-text);
+            border-color: var(--cs-border-strong);
+        }
+
+        .unit-card.selected {
+            border-color: var(--cs-accent);
+            background: var(--cs-accent-dim);
+            color: var(--cs-accent);
+        }
+
+        /* Lesson grid */
+        .lesson-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 12px;
+            margin: 16px 0 20px;
+        }
+
+        .lesson-card {
+            padding: 14px 12px;
+            border-radius: var(--cs-radius-sm);
+            border: 2px solid transparent;
+            background: var(--cs-surface);
+            text-align: center;
+            cursor: pointer;
+            transition: .3s;
+            color: var(--cs-text-muted);
+            font-weight: 700;
+            font-size: .95rem;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
+        }
+
+        .lesson-card .lesson-icon {
+            font-size: 1.6rem;
+            display: block;
+            margin-bottom: 2px;
+        }
+
+        .lesson-card .lesson-code {
+            display: block;
+            font-size: .75rem;
+            color: var(--cs-primary);
+            margin-bottom: 2px;
+        }
+
+        .lesson-card:hover {
+            background: var(--cs-primary-light);
+            color: var(--cs-text);
+            border-color: var(--cs-border-strong);
+        }
+
+        .lesson-card.selected {
+            border-color: var(--cs-secondary);
+            background: rgba(167, 139, 250, 0.08);
+            color: var(--cs-secondary);
+        }
+
+        /* Setup actions */
+        .setup-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
+            align-items: center;
+            margin-top: 18px;
+        }
+
+        .start-button {
+            min-height: 54px;
+            padding: 0 40px;
+            border: 0;
+            border-radius: var(--cs-radius-sm);
+            background: linear-gradient(135deg, var(--cs-primary), #4a6cf7);
+            color: white;
+            font-weight: 900;
+            font-size: 1.08rem;
+            cursor: pointer;
+            transition: .3s;
+            box-shadow: 0 6px 28px rgba(91, 124, 250, 0.3);
+            font-family: var(--font);
+        }
+
+        .start-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 40px rgba(91, 124, 250, 0.4);
+        }
+
+        .timer-toggle-wrap {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            color: var(--cs-text-muted);
+            font-weight: 700;
+        }
+
+        .toggle-track {
+            width: 52px;
+            height: 30px;
+            border-radius: 99px;
+            background: rgba(0, 0, 0, 0.06);
+            cursor: pointer;
+            position: relative;
+            transition: .3s;
+            border: 1px solid var(--cs-border);
+        }
+
+        .toggle-track.active {
+            background: var(--cs-primary);
+            border-color: var(--cs-primary);
+        }
+
+        .toggle-track .toggle-thumb {
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            background: white;
+            position: absolute;
+            top: 3px;
+            right: 3px;
+            transition: .3s;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .toggle-track.active .toggle-thumb {
+            right: 25px;
+        }
+
+        .best-score {
+            color: var(--cs-text-muted);
+            font-size: .85rem;
+            margin-top: 12px;
+            text-align: center;
+        }
+
+        .best-score strong {
+            color: var(--cs-gold);
+        }
+
+        /* ===== PLAY ===== */
+        .play-screen.active {
+            max-width: 980px;
+            margin-inline: auto;
+        }
+
+        .play-topbar {
+            display: grid;
+            grid-template-columns: 1fr auto 1fr;
+            gap: 16px;
+            align-items: center;
+            padding: 14px 22px;
+            background: rgba(255, 255, 255, 0.75);
+            backdrop-filter: blur(12px);
+            border-radius: var(--cs-radius);
+            border: 1px solid var(--cs-border);
+            box-shadow: var(--cs-shadow);
+            margin-bottom: 16px;
+        }
+
+        .play-topbar .progress-copy {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            flex-wrap: wrap;
+        }
+
+        .play-topbar .progress-copy span {
+            color: var(--cs-text-muted);
+            font-size: .9rem;
+        }
+
+        .play-topbar .progress-copy strong {
+            color: var(--cs-primary);
+            font-size: .85rem;
+            background: var(--cs-primary-light);
+            padding: 2px 14px;
+            border-radius: 99px;
+        }
+
+        .progress-track {
+            height: 6px;
+            background: rgba(0, 0, 0, 0.06);
+            border-radius: 99px;
+            overflow: hidden;
+            min-width: 100px;
+        }
+
+        .progress-track span {
+            display: block;
+            height: 100%;
+            width: 0;
+            background: linear-gradient(90deg, var(--cs-accent), var(--cs-primary));
+            border-radius: inherit;
+            transition: width .5s ease;
+        }
+
+        .quit-button {
+            padding: 8px 18px;
+            border-radius: var(--cs-radius-sm);
+            border: 1px solid rgba(248, 113, 113, 0.2);
+            background: rgba(248, 113, 113, 0.06);
+            color: var(--cs-red);
+            font-weight: 700;
+            cursor: pointer;
+            font-family: var(--font);
+            font-size: .85rem;
+            transition: .2s;
+        }
+
+        .quit-button:hover {
+            background: rgba(248, 113, 113, 0.12);
+        }
+
+        /* Stats row */
+        .stats-row {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+
+        .stats-row article {
+            padding: 14px 18px;
+            border-radius: var(--cs-radius-sm);
+            border: 1px solid var(--cs-border);
+            background: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(8px);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
+        }
+
+        .stats-row article span {
+            color: var(--cs-text-muted);
+            font-size: .85rem;
+        }
+
+        .stats-row article strong {
+            font-size: 1.5rem;
+            color: var(--cs-text);
+        }
+
+        .timer-stat {
+            position: relative;
+        }
+
+        .timer-ring {
+            position: absolute;
+            inset: -2px;
+            border-radius: var(--cs-radius-sm);
+            pointer-events: none;
+            border: 2px solid transparent;
+            border-top-color: var(--cs-accent);
+            transition: .3s;
+        }
+
+        /* Question card */
+        .question-card {
+            padding: 28px 30px 34px;
+            border-radius: var(--cs-radius);
+            background: rgba(255, 255, 255, 0.75);
+            backdrop-filter: blur(12px);
+            border: 1px solid var(--cs-border);
+            box-shadow: var(--cs-shadow);
+        }
+
+        .question-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+            font-size: .85rem;
+        }
+
+        .question-meta #questionSkill {
+            color: var(--cs-text-muted);
+            background: var(--cs-primary-light);
+            padding: 2px 14px;
+            border-radius: 99px;
+        }
+
+        .question-meta #questionPoints {
+            color: var(--cs-gold);
+            font-weight: 700;
+        }
+
+        #questionText {
+            font-size: 1.5rem;
+            font-weight: 800;
+            margin: 6px 0 22px;
+            line-height: 1.6;
+            color: var(--cs-text);
+        }
+
+        .answer-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+        }
+
+        .answer-button {
+            min-height: 68px;
+            padding: 14px 18px;
+            border: 2px solid var(--cs-border);
+            border-radius: var(--cs-radius-sm);
+            background: var(--cs-surface);
+            color: var(--cs-text);
+            font-weight: 700;
+            font-size: 1.05rem;
+            cursor: pointer;
+            transition: .25s;
+            font-family: var(--font);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
+        }
+
+        .answer-button .answer-key {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: rgba(0, 0, 0, 0.04);
+            color: var(--cs-text-muted);
+            font-size: .8rem;
+            font-weight: 800;
+            flex-shrink: 0;
+        }
+
+        .answer-button:hover:not(:disabled) {
+            border-color: var(--cs-primary);
+            background: var(--cs-primary-light);
+        }
+
+        .answer-button:disabled {
+            cursor: not-allowed;
+            opacity: .7;
+        }
+
+        .answer-button.correct {
+            border-color: var(--cs-green);
+            background: rgba(74, 222, 128, 0.10);
+        }
+
+        .answer-button.correct .answer-key {
+            background: var(--cs-green);
+            color: white;
+        }
+
+        .answer-button.wrong {
+            border-color: var(--cs-red);
+            background: rgba(248, 113, 113, 0.08);
+        }
+
+        .answer-button.wrong .answer-key {
+            background: var(--cs-red);
+            color: white;
+        }
+
+        /* Feedback */
+        .feedback {
+            margin-top: 20px;
+            padding: 18px 22px;
+            border-radius: var(--cs-radius-sm);
+            background: rgba(74, 222, 128, 0.06);
+            border: 1px solid rgba(74, 222, 128, 0.15);
+        }
+
+        .feedback.wrong {
+            background: rgba(248, 113, 113, 0.06);
+            border-color: rgba(248, 113, 113, 0.15);
+        }
+
+        .feedback-heading {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 6px;
+        }
+
+        .feedback-heading #feedbackIcon {
+            font-size: 1.6rem;
+        }
+
+        .feedback-heading #feedbackTitle {
+            font-size: 1.1rem;
+            color: var(--cs-text);
+        }
+
+        #feedbackExplanation {
+            color: var(--cs-text-muted);
+            font-size: .95rem;
+            margin: 4px 0 12px;
+        }
+
+        #nextButton {
+            padding: 10px 32px;
+            border: 0;
+            border-radius: var(--cs-radius-sm);
+            background: linear-gradient(135deg, var(--cs-primary), #4a6cf7);
+            color: white;
+            font-weight: 800;
+            font-size: 1rem;
+            cursor: pointer;
+            font-family: var(--font);
+            transition: .3s;
+        }
+
+        #nextButton:hover {
+            transform: scale(1.03);
+            box-shadow: 0 6px 24px rgba(91, 124, 250, 0.3);
+        }
+
+        /* ===== RESULT ===== */
+        .result-screen.active {
+            max-width: 820px;
+            margin: 10px auto;
+            padding: 44px 40px 50px;
+            text-align: center;
+            border-radius: var(--cs-radius);
+            background: rgba(255, 255, 255, 0.80);
+            backdrop-filter: blur(16px);
+            border: 1px solid var(--cs-border);
+            box-shadow: var(--cs-shadow-glow);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .confetti {
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        .confetti i {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            border-radius: 2px;
+            opacity: .7;
+            animation: confettiFall 3.5s ease-in forwards;
+            transform: rotate(45deg);
+        }
+
+        @keyframes confettiFall {
+            0% {
+                top: -20px;
+                opacity: 1;
+                transform: rotate(0deg) scale(1);
+            }
+            100% {
+                top: 110%;
+                opacity: 0;
+                transform: rotate(720deg) scale(.3);
+            }
+        }
+
+        .result-badge {
+            font-size: 4rem;
+            display: block;
+            margin-bottom: 4px;
+        }
+
+        .result-screen h1 {
+            font-size: 2.6rem;
+            color: var(--cs-text);
+        }
+
+        .result-screen p {
+            color: var(--cs-text-muted);
+            font-size: 1.1rem;
+        }
+
+        .result-score {
+            margin: 20px 0 18px;
+        }
+
+        .result-score span {
+            color: var(--cs-text-muted);
+            font-size: .95rem;
+            display: block;
+        }
+
+        .result-score strong {
+            font-size: 3.8rem;
+            background: linear-gradient(135deg, var(--cs-gold), #f59e0b);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .result-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+            margin: 16px 0 24px;
+        }
+
+        .result-grid article {
+            padding: 16px 10px;
+            border-radius: var(--cs-radius-sm);
+            border: 1px solid var(--cs-border);
+            background: rgba(255, 255, 255, 0.5);
+        }
+
+        .result-grid article span {
+            color: var(--cs-text-muted);
+            font-size: .8rem;
+            display: block;
+        }
+
+        .result-grid article strong {
+            font-size: 1.4rem;
+            color: var(--cs-text);
+        }
+
+        .result-cert-box {
+            margin: 8px 0 18px;
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .cert-main-btn {
+            min-height: 48px;
+            padding: 0 36px;
+            font-size: 1rem;
+        }
+
+        .result-actions {
+            display: flex;
+            gap: 14px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 10px;
+        }
+
+        .secondary-action {
+            padding: 12px 28px;
+            border-radius: var(--cs-radius-sm);
+            border: 1px solid var(--cs-border);
+            background: transparent;
+            color: var(--cs-text-muted);
+            font-weight: 700;
+            cursor: pointer;
+            font-family: var(--font);
+            font-size: 1rem;
+            transition: .2s;
+        }
+
+        .secondary-action:hover {
+            background: rgba(0, 0, 0, 0.04);
+            color: var(--cs-text);
+        }
+
+        /* ===== CERTIFICATE MODAL ===== */
+        .cert-modal-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(244, 248, 255, 0.92);
+            backdrop-filter: blur(14px);
+            padding: 20px;
+        }
+
+        .cert-modal-container {
+            max-width: 960px;
+            width: 100%;
+            background: #ffffff;
+            border-radius: var(--cs-radius);
+            overflow: hidden;
+            border: 1px solid var(--cs-border);
+            box-shadow: var(--cs-shadow-glow);
+        }
+
+        .cert-modal-header {
+            padding: 16px 24px;
+            background: var(--cs-primary-light);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--cs-border);
+        }
+
+        .cert-modal-header h3 {
+            color: var(--cs-primary);
+            font-size: 1.1rem;
+        }
+
+        .cert-modal-header .btn-group {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .cert-modal-header button {
+            padding: 8px 18px;
+            border-radius: var(--cs-radius-sm);
+            border: 0;
+            font-weight: 700;
+            cursor: pointer;
+            font-family: var(--font);
+            font-size: .85rem;
+            transition: .2s;
+        }
+
+        .btn-print {
+            background: var(--cs-accent-dim);
+            color: var(--cs-accent);
+        }
+
+        .btn-print:hover {
+            background: rgba(79, 195, 247, 0.25);
+        }
+
+        .btn-pdf {
+            background: rgba(251, 191, 36, 0.12);
+            color: var(--cs-gold);
+        }
+
+        .btn-pdf:hover {
+            background: rgba(251, 191, 36, 0.20);
+        }
+
+        .btn-close {
+            background: rgba(248, 113, 113, 0.08);
+            color: var(--cs-red);
+        }
+
+        .btn-close:hover {
+            background: rgba(248, 113, 113, 0.15);
+        }
+
+        .certificate-paper-exact {
+            padding: 32px 40px 28px;
+            background: linear-gradient(145deg, #f8faff, #eef3fe);
+            direction: rtl;
+        }
+
+        .exact-cert-border {
+            border: 2px solid rgba(91, 124, 250, 0.12);
+            border-radius: var(--cs-radius-sm);
+            padding: 28px 32px;
+            background: rgba(255, 255, 255, 0.5);
+        }
+
+        .exact-cert-inner {
+            border: 1px solid var(--cs-border);
+            border-radius: var(--cs-radius-sm);
+            padding: 24px 28px;
+            background: #ffffff;
+        }
+
+        .exact-cert-content {
+            text-align: center;
+        }
+
+        .exact-cert-topbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+
+        .cert-brand-lockup .cert-brand-copy strong {
+            font-size: 1.6rem;
+            color: var(--cs-text);
+        }
+
+        .cert-brand-lockup .cert-brand-copy strong span {
+            color: var(--cs-primary);
+        }
+
+        .cert-brand-lockup .cert-brand-copy small {
+            color: var(--cs-text-muted);
+            font-size: .7rem;
+            display: block;
+        }
+
+        .cert-badge {
+            background: var(--cs-primary-light);
+            color: var(--cs-primary);
+            padding: 4px 18px;
+            border-radius: 99px;
+            font-weight: 800;
+            font-size: .8rem;
+            border: 1px solid rgba(91, 124, 250, 0.15);
+        }
+
+        .exact-cert-title {
+            font-size: 2.6rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, var(--cs-primary), var(--cs-secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin: 4px 0 0;
+        }
+
+        .exact-cert-sub {
+            color: var(--cs-text-muted);
+            font-size: 1rem;
+            margin: 2px 0 6px;
+        }
+
+        .exact-cert-student {
+            font-size: 2rem;
+            font-weight: 900;
+            color: var(--cs-text);
+            margin: 2px 0;
+        }
+
+        .exact-cert-student .cert-student-name {
+            color: var(--cs-gold);
+        }
+
+        .exact-cert-lesson {
+            color: var(--cs-text-muted);
+            font-size: 1.05rem;
+            margin-bottom: 14px;
+        }
+
+        .exact-cert-lesson .cert-lesson-name {
+            color: var(--cs-primary);
+            font-weight: 700;
+        }
+
+        .certificate-facts {
+            display: flex;
+            justify-content: center;
+            gap: 24px;
+            flex-wrap: wrap;
+            padding: 12px 0;
+            border-top: 1px solid var(--cs-border);
+            border-bottom: 1px solid var(--cs-border);
+            margin: 10px 0 14px;
+        }
+
+        .certificate-facts span {
+            color: var(--cs-text-muted);
+            font-size: .85rem;
+        }
+
+        .certificate-facts span strong {
+            color: var(--cs-text);
+            font-weight: 800;
+            display: block;
+            font-size: 1.1rem;
+            margin-top: 2px;
+        }
+
+        .certificate-issued {
+            color: var(--cs-text-muted);
+            font-size: .85rem;
+            margin: 6px 0 10px;
+        }
+
+        .exact-cert-footer {
+            display: flex;
+            justify-content: center;
+            gap: 60px;
+            margin-top: 16px;
+            padding-top: 14px;
+            border-top: 1px solid var(--cs-border);
+        }
+
+        .exact-sig-col {
+            text-align: center;
+        }
+
+        .exact-sig-col .exact-sig-label {
+            color: var(--cs-text-muted);
+            font-size: .75rem;
+            display: block;
+        }
+
+        .exact-sig-col .exact-sig-value {
+            color: var(--cs-text);
+            font-weight: 700;
+            font-size: 1rem;
+            display: block;
+            margin: 2px 0 6px;
+        }
+
+        .exact-sig-line {
+            width: 80px;
+            height: 2px;
+            background: var(--cs-border-strong);
+            margin: 0 auto;
+        }
+
+        /* ===== TOAST ===== */
+        .toast {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%) translateY(80px);
+            padding: 14px 32px;
+            border-radius: var(--cs-radius-sm);
+            background: rgba(255, 255, 255, 0.92);
+            backdrop-filter: blur(12px);
+            border: 1px solid var(--cs-border);
+            color: var(--cs-text);
+            font-weight: 700;
+            box-shadow: 0 12px 48px rgba(0, 0, 0, 0.08);
+            opacity: 0;
+            transition: .4s ease;
+            z-index: 1000;
+            font-family: var(--font);
+        }
+
+        .toast.show {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
+        }
+
+        /* ===== FOOTER ===== */
+        .game-footer {
+            width: min(1320px, calc(100% - 34px));
+            margin: 10px auto 24px;
+            padding: 18px 20px;
+            text-align: center;
+            border-top: 1px solid var(--cs-border);
+            color: var(--cs-text-muted);
+            font-size: .9rem;
+            flex-shrink: 0;
+        }
+
+        .game-footer strong {
+            color: var(--cs-primary);
+            font-weight: 800;
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 820px) {
+            .setup-screen.active {
+                padding: 24px 18px 32px;
+            }
+            .grade-grid {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 10px;
+            }
+            .unit-grid {
+                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            }
+            .lesson-grid {
+                grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+            }
+            .answer-grid {
+                grid-template-columns: 1fr;
+            }
+            .result-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+            .stats-row {
+                grid-template-columns: 1fr 1fr;
+            }
+            .stats-row article:last-child {
+                grid-column: span 2;
+            }
+            .play-topbar {
+                grid-template-columns: 1fr;
+                gap: 10px;
+            }
+            .play-topbar .progress-copy {
+                justify-content: center;
+            }
+            .cert-modal-container {
+                max-width: 100%;
+                margin: 10px;
+            }
+            .certificate-paper-exact {
+                padding: 16px;
+            }
+            .exact-cert-border {
+                padding: 14px;
+            }
+            .exact-cert-inner {
+                padding: 12px;
+            }
+            .exact-cert-title {
+                font-size: 1.8rem;
+            }
+            .exact-cert-student {
+                font-size: 1.4rem;
+            }
+        }
+
+        @media (max-width: 520px) {
+            .game-header {
+                flex-wrap: wrap;
+                gap: 10px;
+                padding: 10px 14px;
+            }
+            .game-brand strong {
+                font-size: 1.2rem;
+            }
+            .brand-logo {
+                font-size: 1.6rem;
+            }
+            .grade-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+            .term-grid {
+                flex-direction: column;
+            }
+            .setup-actions {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            .timer-toggle-wrap {
+                justify-content: center;
+            }
+            .result-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+            .stats-row {
+                grid-template-columns: 1fr;
+            }
+            .stats-row article:last-child {
+                grid-column: span 1;
+            }
+            .question-card {
+                padding: 18px 14px 24px;
+            }
+            #questionText {
+                font-size: 1.2rem;
+            }
+            .result-cert-box {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+
+        /* ===== PRINT ===== */
+        @media print {
+            .game-header,
+            .play-topbar,
+            .stats-row,
+            .question-card,
+            .result-actions,
+            .result-cert-box,
+            .cert-modal-header,
+            .game-shell>.screen:not(.result-screen),
+            .back-link,
+            .sound-button,
+            .player-chip,
+            .quit-button,
+            .confetti,
+            .game-footer,
+            .login-btn {
+                display: none !important;
+            }
+            .result-screen.active {
+                display: block !important;
+                background: white !important;
+                color: #111 !important;
+                border: none !important;
+                box-shadow: none !important;
+                padding: 20px !important;
+            }
+            .result-screen h1,
+            .result-screen p,
+            .result-screen .result-score strong,
+            .result-grid article strong,
+            .result-grid article span,
+            .result-score span {
+                color: #111 !important;
+                -webkit-text-fill-color: #111 !important;
+            }
+            .result-screen .result-badge {
+                font-size: 2.4rem;
+            }
+            .result-grid article {
+                border-color: #ddd !important;
+                background: #f5f5f5 !important;
+            }
+            .cert-modal-overlay {
+                position: relative !important;
+                background: white !important;
+                backdrop-filter: none !important;
+                padding: 0 !important;
+            }
+            .cert-modal-container {
+                border: none !important;
+                box-shadow: none !important;
+                background: white !important;
+            }
+            .certificate-paper-exact {
+                background: white !important;
+                padding: 20px !important;
+            }
+            .exact-cert-border {
+                border-color: #ddd !important;
+            }
+            .exact-cert-inner {
+                border-color: #eee !important;
+            }
+            .exact-cert-title {
+                -webkit-text-fill-color: #1a1a2e !important;
+                background: none !important;
+                color: #1a1a2e !important;
+            }
+            .exact-cert-student .cert-student-name {
+                color: #1a1a2e !important;
+            }
+            .exact-cert-lesson .cert-lesson-name {
+                color: #2563eb !important;
+            }
+            .cert-badge {
+                background: #e0e7ff !important;
+                color: #2563eb !important;
+                border-color: #b9c8f0 !important;
+            }
+            .cert-brand-lockup .cert-brand-copy strong {
+                color: #1a1a2e !important;
+            }
+            .cert-brand-lockup .cert-brand-copy strong span {
+                color: #2563eb !important;
+            }
+            .cert-brand-lockup .cert-brand-copy small {
+                color: #666 !important;
+            }
+            .certificate-facts span {
+                color: #555 !important;
+            }
+            .certificate-facts span strong {
+                color: #1a1a2e !important;
+            }
+            .exact-sig-col .exact-sig-value {
+                color: #1a1a2e !important;
+            }
+            .exact-sig-line {
+                background: #ccc !important;
+            }
+            .certificate-issued {
+                color: #666 !important;
+            }
+            .exact-sig-col .exact-sig-label {
+                color: #666 !important;
+            }
+            .result-screen .result-score strong {
+                -webkit-text-fill-color: #1a1a2e !important;
+                background: none !important;
+                color: #1a1a2e !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- HEADER -->
+    <header class="game-header">
+        <a class="game-brand" href="#">
+            <span class="brand-logo">⌘</span>
+            <span><strong>م<span>برمج المستقبل</span></strong><small>منصة الحاسب للألعاب التفاعلية</small></span>
+        </a>
+        <div class="header-actions">
+            <span class="player-chip" id="playerChip">🖥️ زائر</span>
+            <button class="sound-button" id="soundButton" type="button">🔊</button>
+            <button class="login-btn" id="loginBtn" type="button">👤 تسجيل دخول</button>
+            <button class="back-link" id="gameBackLink" type="button">↺ الرئيسية</button>
+        </div>
+    </header>
+
+    <!-- LOGIN MODAL -->
+    <div class="login-modal-overlay" id="loginModal" hidden>
+        <div class="login-modal-container">
+            <button class="login-modal-close" id="loginModalClose" type="button">✕</button>
+            <h2>👋 تسجيل الدخول</h2>
+            <p>أدخلي بياناتك لتظهر في الشهادة عند الانتهاء.</p>
+            <label for="studentName">الاسم</label>
+            <input type="text" id="studentName" placeholder="مثال: سارة أحمد" />
+            <label for="teacherName">اسم المعلمة</label>
+            <input type="text" id="teacherName" placeholder="مثال: أ. نورة" />
+            <label for="schoolName">اسم المدرسة</label>
+            <input type="text" id="schoolName" placeholder="مثال: مدرسة الأمل" />
+            <div class="modal-actions">
+                <button class="btn-cancel" id="loginCancelBtn" type="button">إلغاء</button>
+                <button class="btn-save" id="loginSaveBtn" type="button">💾 حفظ</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MAIN -->
+    <main class="game-shell">
+        <!-- SETUP -->
+        <section class="screen setup-screen active" id="setupScreen">
+            <div class="setup-copy">
+                <span class="eyebrow">🖥️ منصة الحاسب للألعاب التفاعلية</span>
+                <h1>تحدي <em>الحاسب</em></h1>
+                <p>اختاري الصف، ثم الترم، ثم الوحدة والدرس، وخوضي التحدي (5 أسئلة لكل درس).</p>
+                <div class="setup-panel">
+                    <h2>📚 اختاري الصف الدراسي</h2>
+                    <div class="grade-grid" id="gradeGrid" role="radiogroup">
+                        <button class="grade-card selected" type="button" data-grade="4" role="radio" aria-checked="true">
+                            <span class="grade-icon">🖥️</span><span>الصف الرابع</span>
+                        </button>
+                        <button class="grade-card" type="button" data-grade="5" role="radio">
+                            <span class="grade-icon">💻</span><span>الصف الخامس</span>
+                        </button>
+                        <button class="grade-card" type="button" data-grade="6" role="radio">
+                            <span class="grade-icon">🖥️</span><span>الصف السادس</span>
+                        </button>
+                    </div>
+
+                    <h2>📅 اختاري الترم</h2>
+                    <div class="term-grid" id="termGrid" role="radiogroup">
+                        <button class="term-card selected" type="button" data-term="1" role="radio" aria-checked="true">الترم الأول</button>
+                        <button class="term-card" type="button" data-term="2" role="radio">الترم الثاني</button>
+                    </div>
+
+                    <h2>📖 اختاري الوحدة</h2>
+                    <div class="unit-grid" id="unitGrid"></div>
+
+                    <h2>📘 اختاري الدرس</h2>
+                    <div class="lesson-grid" id="lessonGrid"></div>
+
+                    <div class="setup-actions">
+                        <button class="start-button" id="startButton" type="button">🚀 ابدأ التحدي</button>
+                        <div class="timer-toggle-wrap">
+                            <span class="timer-label">⏱️ مؤقت</span>
+                            <div class="toggle-track active" id="timerToggle" role="button" tabindex="0">
+                                <span class="toggle-thumb"></span>
+                            </div>
+                            <span class="timer-label" id="timerStatusLabel">مفعّل</span>
+                        </div>
+                    </div>
+                    <p class="best-score" id="bestScoreText">🏅 أفضل نتيجة: <strong>0</strong> نقطة</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- PLAY -->
+        <section class="screen play-screen" id="playScreen">
+            <div class="play-topbar">
+                <div class="progress-copy">
+                    <span id="questionCounter">السؤال 1 من 10</span>
+                    <strong id="levelLabel">الدرس</strong>
+                </div>
+                <div class="progress-track"><span id="progressBar"></span></div>
+                <button class="quit-button" id="quitButton" type="button">✕ إنهاء</button>
+            </div>
+            <div class="stats-row">
+                <article><span>⭐ النقاط</span><strong id="scoreValue">0</strong></article>
+                <article class="timer-stat">
+                    <span id="timerLabel">⏱️ الوقت</span>
+                    <strong id="timerValue">—</strong>
+                    <span class="timer-ring" id="timerRing"></span>
+                </article>
+                <article><span>🔥 السلسلة</span><strong><b id="streakValue">0</b></strong></article>
+            </div>
+            <article class="question-card" id="questionCard">
+                <div class="question-meta">
+                    <span id="questionSkill">المهارة</span>
+                    <span id="questionPoints">+100 نقطة</span>
+                </div>
+                <h2 id="questionText">السؤال...</h2>
+                <div class="answer-grid" id="answerGrid"></div>
+                <div class="feedback" id="feedback" hidden>
+                    <div class="feedback-heading">
+                        <span id="feedbackIcon">✓</span>
+                        <strong id="feedbackTitle">إجابة صحيحة!</strong>
+                    </div>
+                    <p id="feedbackExplanation"></p>
+                    <button id="nextButton" type="button">التالي ←</button>
+                </div>
+            </article>
+        </section>
+
+        <!-- RESULT -->
+        <section class="screen result-screen" id="resultScreen">
+            <div class="confetti" id="confetti"></div>
+            <span class="result-badge" id="resultBadge">🏆</span>
+            <h1 id="resultTitle">مبارك!</h1>
+            <p id="resultMessage">نتيجة رائعة.</p>
+            <div class="result-score"><span>مجموع نقاطكِ</span><strong id="finalScore">0</strong></div>
+            <div class="result-grid">
+                <article><span>✅ الصحيح</span><strong id="correctResult">0 / 10</strong></article>
+                <article><span>🎯 الدقة</span><strong id="accuracyResult">0%</strong></article>
+                <article><span>🔥 التتابع</span><strong id="streakResult">0</strong></article>
+                <article><span>⏱️ الوقت</span><strong id="durationResult">0 ث</strong></article>
+            </div>
+            <div class="result-cert-box">
+                <button class="start-button cert-main-btn" id="showCertButton" type="button" hidden>📜 عرض الشهادة</button>
+            </div>
+            <div class="result-actions">
+                <button class="start-button" id="replayButton" type="button">🔄 جولة جديدة</button>
+                <button class="secondary-action" id="backToHomeButton" type="button">🏠 الرئيسية</button>
+            </div>
+        </section>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="game-footer">
+        إعداد وتصميم الموقع <strong>أ/ حنين القثامي</strong> © 2026
+    </footer>
+
+    <!-- CERTIFICATE MOUNT -->
+    <div id="sharedCertificateMount" data-madar-certificate></div>
+    <div class="toast" id="toast" role="status"></div>
+
+    <script>
+        /* ============================================================
+           DATA: المنهج الكامل (جميع الوحدات والدروس + 5 أسئلة لكل درس)
+           ============================================================ */
+        const CURRICULUM = {
+            4: {
+                label: 'الصف الرابع',
+                terms: {
+                    '1': {
+                        label: 'الترم الأول',
+                        units: {
+                            '1': {
+                                label: 'الوحدة الأولى: أساسيات الحاسب',
+                                lessons: [{
+                                    id: '4-1-1-1',
+                                    code: 'و1 – د1',
+                                    label: 'مكونات الحاسب',
+                                    icon: '🖥️',
+                                    skill: 'مكونات الحاسب',
+                                    questions: [
+                                        { text: 'أي من التالي يُعد من وحدات الإخراج؟', options: ['الماوس', 'الشاشة', 'لوحة المفاتيح', 'الماسح الضوئي'], correct: 1, hint: 'تعرض المعلومات.', explanation: 'الشاشة هي وحدة إخراج.' },
+                                        { text: 'ما وظيفة وحدة المعالجة المركزية (CPU)؟', options: ['تخزين الملفات', 'تنفيذ العمليات', 'عرض الصور', 'إدخال النصوص'], correct: 1, hint: 'دماغ الحاسب.', explanation: 'تنفذ التعليمات والعمليات.' },
+                                        { text: 'أي من هذه الأجهزة يُستخدم للإدخال؟', options: ['الطابعة', 'الماسح الضوئي', 'السماعات', 'الشاشة'], correct: 1, hint: 'يدخل البيانات.', explanation: 'الماسح الضوئي يُدخل الصور.' },
+                                        { text: 'ما هو الجهاز الذي يُستخدم لطباعة المستندات؟', options: ['الطابعة', 'الماسح', 'السماعات', 'لوحة المفاتيح'], correct: 0, hint: 'يُخرج على الورق.', explanation: 'الطابعة تطبع المستندات.' },
+                                        { text: 'أي من التالي يُعد من وحدات التخزين الداخلية؟', options: ['القرص الصلب', 'فلاش ميموري', 'قرص مرن', 'قرص مضغوط'], correct: 0, hint: 'داخل الصندوق.', explanation: 'القرص الصلب هو تخزين داخلي.' }
+                                    ]
+                                }, {
+                                    id: '4-1-1-2',
+                                    code: 'و1 – د2',
+                                    label: 'وحدات الإدخال والإخراج',
+                                    icon: '⌨️',
+                                    skill: 'وحدات الإدخال والإخراج',
+                                    questions: [
+                                        { text: 'أي من التالي يُعد من وحدات الإدخال؟', options: ['الطابعة', 'لوحة المفاتيح', 'الشاشة', 'السماعات'], correct: 1, hint: 'تدخل البيانات.', explanation: 'لوحة المفاتيح هي إدخال.' },
+                                        { text: 'أي من التالي يُعد من وحدات الإخراج؟', options: ['الماوس', 'الماسح', 'السماعات', 'لوحة المفاتيح'], correct: 2, hint: 'تُخرج الصوت.', explanation: 'السماعات هي إخراج.' },
+                                        { text: 'ما اسم الذاكرة الدائمة؟', options: ['RAM', 'ROM', 'Cache', 'Register'], correct: 1, hint: 'تحتفظ بالبيانات.', explanation: 'ROM تحتفظ بالبيانات بشكل دائم.' },
+                                        { text: 'أي من التالي يُستخدم لإدخال الصوت؟', options: ['الميكروفون', 'السماعات', 'الشاشة', 'الطابعة'], correct: 0, hint: 'يدخل الصوت.', explanation: 'الميكروفون هو إدخال صوتي.' },
+                                        { text: 'ما هي وحدة الإخراج التي تعرض الصور؟', options: ['الشاشة', 'الطابعة', 'السماعات', 'الماسح'], correct: 0, hint: 'تعرض مرئياً.', explanation: 'الشاشة تعرض الصور والنصوص.' }
+                                    ]
+                                }]
+                            },
+                            '2': {
+                                label: 'الوحدة الثانية: نظام التشغيل',
+                                lessons: [{
+                                    id: '4-1-2-1',
+                                    code: 'و2 – د1',
+                                    label: 'التعرف على نظام التشغيل',
+                                    icon: '⚙️',
+                                    skill: 'نظام التشغيل',
+                                    questions: [
+                                        { text: 'ما هو نظام التشغيل؟', options: ['برنامج لإدارة الحاسب', 'جهاز تخزين', 'شاشة عرض', 'لوحة مفاتيح'], correct: 0, hint: 'يدير الحاسب.', explanation: 'يدير الموارد والبرامج.' },
+                                        { text: 'أي من التالي يُعد نظام تشغيل؟', options: ['Word', 'Windows 11', 'Chrome', 'Photoshop'], correct: 1, hint: 'نظام مشهور.', explanation: 'Windows 11 هو نظام تشغيل.' },
+                                        { text: 'ما هي المهمة الرئيسية لنظام التشغيل؟', options: ['تشغيل الألعاب', 'إدارة الذاكرة', 'تصفح الإنترنت', 'كتابة النصوص'], correct: 1, hint: 'يدير الموارد.', explanation: 'يدير الذاكرة والعمليات.' },
+                                        { text: 'أي من التالي يُعد من أنظمة التشغيل؟', options: ['macOS', 'Word', 'Excel', 'Chrome'], correct: 0, hint: 'نظام من أبل.', explanation: 'macOS هو نظام تشغيل.' },
+                                        { text: 'ما هي واجهة المستخدم في Windows؟', options: ['سطح المكتب', 'الموجه', 'المستكشف', 'المحرر'], correct: 0, hint: 'المكان الرئيسي.', explanation: 'سطح المكتب هو الواجهة الرسومية.' }
+                                    ]
+                                }, {
+                                    id: '4-1-2-2',
+                                    code: 'و2 – د2',
+                                    label: 'سطح المكتب وإدارة الملفات',
+                                    icon: '📂',
+                                    skill: 'إدارة الملفات',
+                                    questions: [
+                                        { text: 'أيقونة "سلة المحذوفات" تحتفظ بـ:', options: ['الملفات المحذوفة مؤقتاً', 'البرامج المثبتة', 'مستندات العمل', 'الصور'], correct: 0, hint: 'بعد الحذف.', explanation: 'تخزن الملفات المحذوفة مؤقتاً.' },
+                                        { text: 'ما وظيفة سطح المكتب؟', options: ['عرض الملفات', 'تنظيم البرامج', 'واجهة المستخدم', 'تخزين'], correct: 2, hint: 'مكان التفاعل.', explanation: 'هو واجهة المستخدم الرئيسية.' },
+                                        { text: 'كيف تفتح ملفاً؟', options: ['نقر مزدوج', 'نقر فردي', 'سحب', 'نقر يمين'], correct: 0, hint: 'الطريقة الأساسية.', explanation: 'النقر المزدوج يفتح الملف.' },
+                                        { text: 'ما هو "المجلد"؟', options: ['مكان لتنظيم الملفات', 'نوع برامج', 'جهاز تخزين', 'واجهة'], correct: 0, hint: 'يحوي ملفات.', explanation: 'المجلد هو حاوية للملفات.' },
+                                        { text: 'كيف تنشئ مجلداً جديداً؟', options: ['نقر يمين ← جديد ← مجلد', 'نقر مزدوج', 'سحب ملف', 'حذف'], correct: 0, hint: 'من القائمة.', explanation: 'نقر يمين ثم جديد ثم مجلد.' }
+                                    ]
+                                }]
+                            }
+                        }
+                    },
+                    '2': {
+                        label: 'الترم الثاني',
+                        units: {
+                            '3': {
+                                label: 'الوحدة الثالثة: لوحة المفاتيح',
+                                lessons: [{
+                                    id: '4-2-3-1',
+                                    code: 'و3 – د1',
+                                    label: 'مفاتيح لوحة المفاتيح',
+                                    icon: '⌨️',
+                                    skill: 'مفاتيح الحاسوب',
+                                    questions: [
+                                        { text: 'أي مفتاح لكتابة حرف كبير؟', options: ['Shift', 'Ctrl', 'Alt', 'Enter'], correct: 0, hint: 'مفتاح التبديل.', explanation: 'Shift مع الحرف يكتب كبيراً.' },
+                                        { text: 'ما اسم مفتاح "المسافة"؟', options: ['Space', 'Enter', 'Backspace', 'Tab'], correct: 0, hint: 'يُضيف فراغاً.', explanation: 'Space يُضيف مسافة.' },
+                                        { text: 'أي مفتاح للذهاب للسطر التالي؟', options: ['Enter', 'Shift', 'Ctrl', 'Alt'], correct: 0, hint: 'ينتقل للأسفل.', explanation: 'Enter ينهي السطر.' },
+                                        { text: 'ما هو مفتاح "Tab"؟', options: ['للانتقال بين الحقول', 'للمسافة', 'للحذف', 'للحروف'], correct: 0, hint: 'ينقل المؤشر.', explanation: 'Tab للانتقال بين الحقول.' },
+                                        { text: 'أي مفتاح لحذف الحرف الذي أمام المؤشر؟', options: ['Delete', 'Backspace', 'Insert', 'Home'], correct: 0, hint: 'يمسح للأمام.', explanation: 'Delete يمسح الحرف الذي أمام المؤشر.' }
+                                    ]
+                                }, {
+                                    id: '4-2-3-2',
+                                    code: 'و3 – د2',
+                                    label: 'مهارات الكتابة',
+                                    icon: '✍️',
+                                    skill: 'الكتابة',
+                                    questions: [
+                                        { text: 'أي مفتاح لحذف الحرف الذي قبل المؤشر؟', options: ['Delete', 'Backspace', 'Insert', 'Home'], correct: 1, hint: 'يمسح للخلف.', explanation: 'Backspace يمسح الذي قبل المؤشر.' },
+                                        { text: 'مفتاح Enter يُستخدم لـ:', options: ['سطر جديد', 'حذف نص', 'نسخ نص', 'تغيير اللغة'], correct: 0, hint: 'سطر جديد.', explanation: 'يستخدم لسطر جديد أو تأكيد.' },
+                                        { text: 'كيف تكتب "@"؟', options: ['Shift + 2', 'Ctrl + 2', 'Alt + 2', 'Shift + ق'], correct: 0, hint: 'مع الرقم 2.', explanation: 'Shift + 2 يكتب @.' },
+                                        { text: 'ما هي "سرعة الكتابة"؟', options: ['كلمات في الدقيقة', 'عدد الأحرف', 'وقت القراءة', 'حجم الخط'], correct: 0, hint: 'تقاس بالوقت.', explanation: 'تقاس بعدد الكلمات في الدقيقة.' },
+                                        { text: 'وضع صحيح للكتابة؟', options: ['النظر للشاشة', 'النظر للمفاتيح', 'يد واحدة', 'ببطء'], correct: 0, hint: 'وضع مريح.', explanation: 'النظر للشاشة يساعد على السرعة.' }
+                                    ]
+                                }]
+                            },
+                            '4': {
+                                label: 'الوحدة الرابعة: معالج النصوص',
+                                lessons: [{
+                                    id: '4-2-4-1',
+                                    code: 'و4 – د1',
+                                    label: 'بدء استخدام Word',
+                                    icon: '📝',
+                                    skill: 'معالج النصوص',
+                                    questions: [
+                                        { text: 'أي برنامج لكتابة النصوص؟', options: ['Excel', 'Word', 'PowerPoint', 'Access'], correct: 1, hint: 'معالجة النصوص.', explanation: 'Word هو معالج النصوص.' },
+                                        { text: 'ما اسم نوع الخط؟', options: ['المقاس', 'النوع', 'اللون', 'المسافة'], correct: 1, hint: 'شكل الحروف.', explanation: 'نوع الخط هو تصميم الحروف.' },
+                                        { text: 'كيف تفتح Word؟', options: ['قائمة ابدأ', 'سطح المكتب', 'شريط المهام', 'جميع ما سبق'], correct: 3, hint: 'طرق متعددة.', explanation: 'يمكن فتحه بعدة طرق.' },
+                                        { text: 'امتداد ملف Word؟', options: ['.docx', '.xlsx', '.pptx', '.pdf'], correct: 0, hint: 'امتداد النصوص.', explanation: '.docx هو الامتداد الافتراضي.' },
+                                        { text: 'أين شريط الأدوات السريع؟', options: ['شريط الأدوات السريع', 'شريط الحالة', 'شريط التمرير', 'شريط العنوان'], correct: 0, hint: 'أوامر سريعة.', explanation: 'يحوي أوامر مثل حفظ وتراجع.' }
+                                    ]
+                                }, {
+                                    id: '4-2-4-2',
+                                    code: 'و4 – د2',
+                                    label: 'تنسيق النصوص',
+                                    icon: '🎨',
+                                    skill: 'تنسيق',
+                                    questions: [
+                                        { text: 'أداة "غامق" تجعل النص:', options: ['أكثر سُمكاً', 'مائلاً', 'تحته خط', 'أكبر'], correct: 0, hint: 'ظاهر أكثر.', explanation: 'الغامق يزيد السُمك.' },
+                                        { text: 'محاذاة النص إلى اليمين تعني:', options: ['يبدأ من اليمين', 'في المنتصف', 'يبدأ من اليسار', 'ممتد'], correct: 0, hint: 'اتجاه النص.', explanation: 'يبدأ من الجهة اليمنى.' },
+                                        { text: 'كيف تجعل النص مائلاً؟', options: ['زر Italic', 'زر Bold', 'زر Underline', 'توسيط'], correct: 0, hint: 'Ctrl + I.', explanation: 'Italic أو Ctrl + I.' },
+                                        { text: 'أداة "توسيط" تجعل النص:', options: ['في المنتصف', 'على اليمين', 'على اليسار', 'متناثراً'], correct: 0, hint: 'منتصف الصفحة.', explanation: 'يوسّط النص أفقياً.' },
+                                        { text: 'كيف تغير لون الخط؟', options: ['تنسيق ← خط ← لون', 'إدراج', 'عرض', 'لا يمكن'], correct: 0, hint: 'تغيير المظهر.', explanation: 'من تنسيق أو شريط الأدوات.' }
+                                    ]
+                                }]
+                            },
+                            '5': {
+                                label: 'الوحدة الخامسة: الإنترنت',
+                                lessons: [{
+                                    id: '4-2-5-1',
+                                    code: 'و5 – د1',
+                                    label: 'التصفح والبحث',
+                                    icon: '🌐',
+                                    skill: 'مهارات الإنترنت',
+                                    questions: [
+                                        { text: 'ما هو المتصفح؟', options: ['برنامج لتصفح الإنترنت', 'نظام تشغيل', 'معالج نصوص', 'جدول'], correct: 0, hint: 'يفتح المواقع.', explanation: 'عرض صفحات الإنترنت.' },
+                                        { text: 'أي من التالي مُحرك بحث؟', options: ['Google', 'Windows', 'Word', 'Excel'], correct: 0, hint: 'يبحث عن المعلومات.', explanation: 'Google هو محرك بحث.' },
+                                        { text: 'ما هو URL؟', options: ['عنوان موقع الويب', 'اسم مستخدم', 'كلمة مرور', 'رقم هاتف'], correct: 0, hint: 'في شريط العنوان.', explanation: 'عنوان الموقع مثل example.com.' },
+                                        { text: 'أي للبحث عن صور؟', options: ['بحث صور جوجل', 'كتابة نص', 'استخدام Word', 'فتح ملف'], correct: 0, hint: 'بحث متقدم.', explanation: 'خاصية بحث الصور في جوجل.' },
+                                        { text: 'ما هو "الرابط"؟', options: ['ينقل لصفحة أخرى', 'صورة ثابتة', 'فيديو', 'ملف صوتي'], correct: 0, hint: 'ينقلك لمكان آخر.', explanation: 'عنصر تفاعلي ينقل لصفحة أخرى.' }
+                                    ]
+                                }, {
+                                    id: '4-2-5-2',
+                                    code: 'و5 – د2',
+                                    label: 'البريد الإلكتروني',
+                                    icon: '✉️',
+                                    skill: 'البريد',
+                                    questions: [
+                                        { text: 'عنوان البريد الإلكتروني؟', options: ['اسم@موقع', 'www.موقع.com', 'رقم هاتف', 'عنوان منزل'], correct: 0, hint: 'للرسائل.', explanation: 'اسم@موقع.نطاق.' },
+                                        { text: 'ما هو "المرفق"؟', options: ['ملف مع الرسالة', 'نص الرسالة', 'عنوان المرسل', 'التاريخ'], correct: 0, hint: 'شيء مرفق.', explanation: 'ملف يُرسل مع الرسالة.' },
+                                        { text: 'خدمة بريد إلكتروني؟', options: ['Gmail', 'Search', 'Maps', 'YouTube'], correct: 0, hint: 'مراسلة.', explanation: 'Gmail هي خدمة بريد.' },
+                                        { text: 'ماذا يعني "CC"؟', options: ['نسخة كربونية', 'مرفق', 'الموضوع', 'رد'], correct: 0, hint: 'إرسال نسخة.', explanation: 'نسخة كربونية لشخص آخر.' },
+                                        { text: 'كيف ترد على بريد؟', options: ['زر Reply', 'زر Forward', 'زر Delete', 'زر Compose'], correct: 0, hint: 'ترد للمرسل.', explanation: 'Reply للرد على المرسل.' }
+                                    ]
+                                }]
+                            }
+                        }
+                    }
+                }
+            },
+            5: {
+                label: 'الصف الخامس',
+                terms: {
+                    '1': {
+                        label: 'الترم الأول',
+                        units: {
+                            '1': {
+                                label: 'الوحدة الأولى: معالج النصوص المتقدم',
+                                lessons: [{
+                                    id: '5-1-1-1',
+                                    code: 'و1 – د1',
+                                    label: 'تنسيق الفقرات والصفحات',
+                                    icon: '📄',
+                                    skill: 'تنسيق متقدم',
+                                    questions: [
+                                        { text: 'التوسيط يجعل النص:', options: ['في المنتصف', 'على اليمين', 'على اليسار', 'متناثراً'], correct: 0, hint: 'منتصف الصفحة.', explanation: 'يوسّط النص أفقياً.' },
+                                        { text: 'ما هو "الرأس"؟', options: ['نص علوي ثابت', 'نص سفلي ثابت', 'هامش', 'نص عائم'], correct: 0, hint: 'أعلى الصفحة.', explanation: 'نص يظهر أعلى كل صفحة.' },
+                                        { text: 'ما هو "التذييل"؟', options: ['نص سفلي ثابت', 'نص علوي ثابت', 'رقم الصفحة', 'نص جانبي'], correct: 0, hint: 'أسفل الصفحة.', explanation: 'نص يظهر أسفل كل صفحة.' },
+                                        { text: 'كيف تغير اتجاه الصفحة لأفقي؟', options: ['تنسيق ← اتجاه', 'إدراج ← اتجاه', 'عرض ← اتجاه', 'أدوات'], correct: 0, hint: 'تغيير التخطيط.', explanation: 'من تنسيق الصفحة.' },
+                                        { text: 'المسافة البادئة هي:', options: ['إزاحة السطر الأول', 'بين السطور', 'حجم الخط', 'لون النص'], correct: 0, hint: 'بداية السطر.', explanation: 'إزاحة السطر الأول من الفقرة.' }
+                                    ]
+                                }, {
+                                    id: '5-1-1-2',
+                                    code: 'و1 – د2',
+                                    label: 'إدراج الجداول والصور',
+                                    icon: '🖼️',
+                                    skill: 'إدراج',
+                                    questions: [
+                                        { text: 'أداة إدراج صورة؟', options: ['إدراج صورة', 'رسم جدول', 'إدراج نص', 'تنسيق'], correct: 0, hint: 'من قائمة إدراج.', explanation: 'لإضافة صورة.' },
+                                        { text: 'أين خيار إدراج جدول؟', options: ['إدراج → جدول', 'عرض → جدول', 'تنسيق → جدول', 'أدوات'], correct: 0, hint: 'من إدراج.', explanation: 'إدراج → جدول.' },
+                                        { text: 'كيف تغير حجم الصورة؟', options: ['سحب الزوايا', 'كتابة حجم', 'اقتصاص', 'جميع ما سبق'], correct: 3, hint: 'طرق متعددة.', explanation: 'بسحب الزوايا أو كتابة الأبعاد.' },
+                                        { text: 'ما هو "اقتصاص" الصورة؟', options: ['قص جزء', 'تكبير', 'تصغير', 'تلوين'], correct: 0, hint: 'إزالة أجزاء.', explanation: 'قص جزء من الصورة.' },
+                                        { text: 'كيف تدمج خلايا؟', options: ['تنسيق → دمج', 'إدراج → دمج', 'عرض → دمج', 'أدوات'], correct: 0, hint: 'توحيد الخلايا.', explanation: 'من تنسيق الجدول.' }
+                                    ]
+                                }]
+                            },
+                            '2': {
+                                label: 'الوحدة الثانية: الجداول الإلكترونية',
+                                lessons: [{
+                                    id: '5-1-2-1',
+                                    code: 'و2 – د1',
+                                    label: 'مقدمة في Excel',
+                                    icon: '📊',
+                                    skill: 'Excel',
+                                    questions: [
+                                        { text: 'برنامج الجداول الإلكترونية؟', options: ['Excel', 'Word', 'PowerPoint', 'Access'], correct: 0, hint: 'للجداول.', explanation: 'Microsoft Excel.' },
+                                        { text: 'الخلية في العمود A والصف 1؟', options: ['A1', '1A', 'A-1', '1-A'], correct: 0, hint: 'عمود ثم صف.', explanation: 'الخلية A1.' },
+                                        { text: 'العمود في الجدول هو:', options: ['المجموعة الرأسية', 'المجموعة الأفقية', 'خلية', 'مخطط'], correct: 0, hint: 'عمودي.', explanation: 'مجموعة خلايا رأسية.' },
+                                        { text: 'الصف في الجدول هو:', options: ['المجموعة الأفقية', 'المجموعة الرأسية', 'خلية', 'مخطط'], correct: 0, hint: 'أفقي.', explanation: 'مجموعة خلايا أفقية.' },
+                                        { text: 'كيف تحدد نطاق خلايا؟', options: ['بالسحب', 'كتابة النطاق', 'استخدام Shift', 'جميع ما سبق'], correct: 3, hint: 'طرق التحديد.', explanation: 'بجميع هذه الطرق.' }
+                                    ]
+                                }, {
+                                    id: '5-1-2-2',
+                                    code: 'و2 – د2',
+                                    label: 'الدوال والعمليات الحسابية',
+                                    icon: '➕',
+                                    skill: 'الدوال',
+                                    questions: [
+                                        { text: 'دالة الجمع في Excel؟', options: ['SUM', 'WORD', 'POWER', 'WINDOWS'], correct: 0, hint: 'جمع.', explanation: 'SUM هي دالة الجمع.' },
+                                        { text: 'دالة المتوسط الحسابي؟', options: ['AVERAGE', 'SUM', 'MAX', 'MIN'], correct: 0, hint: 'تحسب المتوسط.', explanation: 'AVERAGE تحسب المتوسط.' },
+                                        { text: 'كيف تكتب معادلة جمع؟', options: ['=A1+A2', 'SUM(A1:A2)', '=SUM(A1:A2)', 'جميع ما سبق'], correct: 3, hint: 'طرق المعادلة.', explanation: 'بجميع هذه الطرق.' },
+                                        { text: 'دالة إيجاد القيمة العظمى؟', options: ['MAX', 'MIN', 'SUM', 'AVERAGE'], correct: 0, hint: 'القيمة الكبرى.', explanation: 'MAX للقيمة العظمى.' },
+                                        { text: 'عملية حسابية في Excel؟', options: ['الجمع', 'الطرح', 'الضرب', 'جميع ما سبق'], correct: 3, hint: 'الأساسية.', explanation: 'يدعم جميع العمليات.' }
+                                    ]
+                                }]
+                            }
+                        }
+                    },
+                    '2': {
+                        label: 'الترم الثاني',
+                        units: {
+                            '3': {
+                                label: 'الوحدة الثالثة: العروض التقديمية',
+                                lessons: [{
+                                    id: '5-2-3-1',
+                                    code: 'و3 – د1',
+                                    label: 'إنشاء الشرائح',
+                                    icon: '📽️',
+                                    skill: 'PowerPoint',
+                                    questions: [
+                                        { text: 'برنامج العروض التقديمية؟', options: ['PowerPoint', 'Word', 'Excel', 'Access'], correct: 0, hint: 'للعروض.', explanation: 'Microsoft PowerPoint.' },
+                                        { text: 'ما اسم الشريحة؟', options: ['Slide', 'Page', 'Sheet', 'Frame'], correct: 0, hint: 'صفحة العرض.', explanation: 'الشريحة هي Slide.' },
+                                        { text: 'كيف تضيف شريحة جديدة؟', options: ['إدراج → شريحة جديدة', 'عرض', 'تنسيق', 'أدوات'], correct: 0, hint: 'من إدراج.', explanation: 'إدراج → شريحة جديدة.' },
+                                        { text: 'تخطيط الشريحة هو:', options: ['ترتيب العناصر', 'لون الخلفية', 'نوع الخط', 'حجم النص'], correct: 0, hint: 'تنظيم المحتوى.', explanation: 'ترتيب النصوص والصور.' },
+                                        { text: 'أداة تغيير الخلفية؟', options: ['تصميم → خلفية', 'إدراج', 'عرض', 'أدوات'], correct: 0, hint: 'تغيير المظهر.', explanation: 'من تصميم يمكن تغيير الخلفية.' }
+                                    ]
+                                }, {
+                                    id: '5-2-3-2',
+                                    code: 'و3 – د2',
+                                    label: 'الحركات والمؤثرات',
+                                    icon: '✨',
+                                    skill: 'مؤثرات',
+                                    questions: [
+                                        { text: 'الحركة الانتقالية تستخدم لـ:', options: ['تحريك العناصر', 'تغيير الخلفية', 'إضافة صوت', 'إدراج صورة'], correct: 0, hint: 'تجعل العرض حيوياً.', explanation: 'تُحرك العناصر.' },
+                                        { text: 'الفرق بين انتقالية وظهور؟', options: ['بين الشرائح وداخلها', 'نفس الشيء', 'لا فرق', 'للصور'], correct: 0, hint: 'مكان التأثير.', explanation: 'انتقالية بين الشرائح، وظهور داخلها.' },
+                                        { text: 'كيف تضيف صوتاً لشريحة؟', options: ['إدراج → صوت', 'عرض', 'تنسيق', 'أدوات'], correct: 0, hint: 'من إدراج.', explanation: 'إدراج → صوت.' },
+                                        { text: 'التوقيت في العرض هو:', options: ['مدة عرض الشريحة', 'سرعة الحركة', 'حجم النص', 'لون الخلفية'], correct: 0, hint: 'زمن العرض.', explanation: 'يحدد مدة بقاء الشريحة.' },
+                                        { text: 'كيف تشاهد العرض من البداية؟', options: ['F5', 'Shift+F5', 'Enter', 'Ctrl+F5'], correct: 0, hint: 'مفتاح التشغيل.', explanation: 'F5 يبدأ العرض من البداية.' }
+                                    ]
+                                }]
+                            },
+                            '4': {
+                                label: 'الوحدة الرابعة: أمان الإنترنت',
+                                lessons: [{
+                                    id: '5-2-4-1',
+                                    code: 'و4 – د1',
+                                    label: 'كلمات المرور والخصوصية',
+                                    icon: '🔒',
+                                    skill: 'الأمان',
+                                    questions: [
+                                        { text: 'كلمة مرور قوية تحتوي على:', options: ['حروف وأرقام ورموز', 'اسم مستخدم', 'تاريخ ميلاد', 'رقم هاتف'], correct: 0, hint: 'صعبة التخمين.', explanation: 'تحتوي على حروف وأرقام ورموز.' },
+                                        { text: 'معلومات شخصية يجب حمايتها؟', options: ['العنوان والهاتف', 'اسم المدينة', 'الطقس', 'وقت الصلاة'], correct: 0, hint: 'خاصة.', explanation: 'العنوان والهاتف معلومات خاصة.' },
+                                        { text: 'إذا طلب منك غريب كلمة المرور؟', options: ['لا تعطيها أبداً', 'تعطيها لصديق', 'تعطيها لمدير', 'تتجاهل'], correct: 0, hint: 'حماية.', explanation: 'لا تعطها لأحد لا تثق به.' },
+                                        { text: 'ما هو التصيد الاحتيالي؟', options: ['سرقة المعلومات', 'لعبة', 'نوع برامج', 'جهاز تخزين'], correct: 0, hint: 'خداع.', explanation: 'محاولة احتيالية للحصول على معلوماتك.' },
+                                        { text: 'كيف تحمي حسابك؟', options: ['كلمة قوية', 'تحديثها', 'مصادقة ثنائية', 'جميع ما سبق'], correct: 3, hint: 'طرق الحماية.', explanation: 'جميع هذه الإجراءات تحمي حسابك.' }
+                                    ]
+                                }, {
+                                    id: '5-2-4-2',
+                                    code: 'و4 – د2',
+                                    label: 'التنمر الإلكتروني',
+                                    icon: '🛡️',
+                                    skill: 'السلوك الرقمي',
+                                    questions: [
+                                        { text: 'ما هو التنمر الإلكتروني؟', options: ['إيذاء عبر الإنترنت', 'مشاركة صور', 'لعب', 'بحث'], correct: 0, hint: 'سلوك مؤذي.', explanation: 'إيذاء شخص عبر الإنترنت.' },
+                                        { text: 'إذا تعرضت للتنمر؟', options: ['تخبر شخصاً بالغاً', 'ترد بنفس الطريقة', 'تحذف الحساب', 'تتجاهل'], correct: 0, hint: 'طلب المساعدة.', explanation: 'أبلغ شخصاً بالغاً تثق به.' },
+                                        { text: 'من أشكال التنمر الإلكتروني؟', options: ['رسائل مسيئة', 'صور بدون إذن', 'انتحال', 'جميع ما سبق'], correct: 3, hint: 'أشكال متعددة.', explanation: 'كلها تعتبر تنمراً إلكترونياً.' },
+                                        { text: 'كيف تحمي نفسك من التنمر؟', options: ['لا تشارك معلومات', 'لا تفتح روابط مشبوهة', 'تحدث مع بالغ', 'جميع ما سبق'], correct: 3, hint: 'الوقاية.', explanation: 'اتباع هذه النصائح يقلل الخطر.' },
+                                        { text: 'دورك كمواطن رقمي إيجابي؟', options: ['احترام الآخرين', 'عدم المشاركة', 'مساعدة الضحايا', 'جميع ما سبق'], correct: 3, hint: 'سلوك مسؤول.', explanation: 'المواطن الإيجابي يحترم ويساعد.' }
+                                    ]
+                                }]
+                            },
+                            '5': {
+                                label: 'الوحدة الخامسة: البريد الإلكتروني',
+                                lessons: [{
+                                    id: '5-2-5-1',
+                                    code: 'و5 – د1',
+                                    label: 'إرسال واستقبال الرسائل',
+                                    icon: '✉️',
+                                    skill: 'مراسلة',
+                                    questions: [
+                                        { text: 'البريد الإلكتروني هو:', options: ['رسائل عبر الإنترنت', 'رسائل ورقية', 'مكالمات', 'رسائل قصيرة'], correct: 0, hint: 'مراسلة إلكترونية.', explanation: 'نظام لتبادل الرسائل عبر الإنترنت.' },
+                                        { text: 'المرفق في البريد هو:', options: ['ملف مع الرسالة', 'نص الرسالة', 'عنوان المرسل', 'التاريخ'], correct: 0, hint: 'شيء مرفق.', explanation: 'ملف يُرسل مع الرسالة.' },
+                                        { text: 'كيف ترسل بريداً جديداً؟', options: ['زر Compose', 'زر Reply', 'زر Forward', 'زر Delete'], correct: 0, hint: 'إنشاء جديد.', explanation: 'Compose لكتابة بريد جديد.' },
+                                        { text: 'صندوق الوارد هو:', options: ['مكان استقبال الرسائل', 'مكان الإرسال', 'المحذوفات', 'المجلدات'], correct: 0, hint: 'يستقبل.', explanation: 'المكان الذي تستقبل فيه الرسائل.' },
+                                        { text: 'الرد للجميع يعني:', options: ['الرد على جميع المستلمين', 'الرد على المرسل فقط', 'تحويل', 'حذف'], correct: 0, hint: 'إرسال للجميع.', explanation: 'يرد على جميع المستلمين.' }
+                                    ]
+                                }]
+                            }
+                        }
+                    }
+                }
+            },
+            6: {
+                label: 'الصف السادس',
+                terms: {
+                    '1': {
+                        label: 'الترم الأول',
+                        units: {
+                            '1': {
+                                label: 'الوحدة الأولى: مفاهيم البرمجة',
+                                lessons: [{
+                                    id: '6-1-1-1',
+                                    code: 'و1 – د1',
+                                    label: 'مقدمة في البرمجة',
+                                    icon: '🤖',
+                                    skill: 'برمجة',
+                                    questions: [
+                                        { text: 'البرمجة هي:', options: ['كتابة التعليمات', 'استخدام الإنترنت', 'تصميم الصور', 'كتابة النصوص'], correct: 0, hint: 'تعطي أوامر.', explanation: 'كتابة تعليمات للحاسب.' },
+                                        { text: 'الخوارزمية هي:', options: ['خطوات لحل مشكلة', 'نوع برامج', 'لغة برمجة', 'جهاز تخزين'], correct: 0, hint: 'خطوات متسلسلة.', explanation: 'مجموعة من الخطوات المنطقية.' },
+                                        { text: 'أي من التالي لغة برمجة؟', options: ['Python', 'Windows', 'Word', 'Chrome'], correct: 0, hint: 'لغة مشهورة.', explanation: 'Python هي لغة برمجة.' },
+                                        { text: 'الكود في البرمجة هو:', options: ['التعليمات المكتوبة', 'جهاز الحاسب', 'نوع أخطاء', 'لغة طبيعية'], correct: 0, hint: 'نص البرنامج.', explanation: 'مجموعة التعليمات التي يكتبها المبرمج.' },
+                                        { text: 'المترجم في البرمجة:', options: ['يحول الكود للغة الآلة', 'نوع أخطاء', 'جهاز تخزين', 'لغة برمجة'], correct: 0, hint: 'يترجم الكود.', explanation: 'يحول الكود إلى لغة يفهمها الحاسب.' }
+                                    ]
+                                }, {
+                                    id: '6-1-1-2',
+                                    code: 'و1 – د2',
+                                    label: 'المتغيرات والتكرار',
+                                    icon: '🔄',
+                                    skill: 'المتغيرات',
+                                    questions: [
+                                        { text: 'المتغير في البرمجة هو:', options: ['مكان لتخزين قيمة', 'نوع أخطاء', 'حلقة تكرار', 'شرط'], correct: 0, hint: 'يخزن قيمة.', explanation: 'اسم يُستخدم لتخزين قيمة.' },
+                                        { text: 'التكرار في البرمجة يعني:', options: ['تنفيذ تعليمات عدة مرات', 'توقف البرنامج', 'قراءة البيانات', 'طباعة'], correct: 0, hint: 'يعيد التنفيذ.', explanation: 'تنفيذ مجموعة تعليمات بشكل متكرر.' },
+                                        { text: 'مثال على التكرار:', options: ['طباعة من 1 إلى 10', 'جمع رقمين', 'ضرب', 'قراءة اسم'], correct: 0, hint: 'عملية متكررة.', explanation: 'طباعة الأرقام تتطلب تكراراً.' },
+                                        { text: 'نوع البيانات في المتغير يحدد:', options: ['نوع القيمة المخزنة', 'اسم المتغير', 'قيمته', 'موقعه'], correct: 0, hint: 'رقم أو نص.', explanation: 'يحدد نوع القيمة المخزنة.' },
+                                        { text: 'كيف تعلن عن متغير في بايثون؟', options: ['x = 5', 'var x = 5', 'int x = 5', 'let x = 5'], correct: 0, hint: 'الاسم والقيمة.', explanation: 'في بايثون تكتب الاسم ثم = ثم القيمة.' }
+                                    ]
+                                }]
+                            },
+                            '2': {
+                                label: 'الوحدة الثانية: الخوارزميات',
+                                lessons: [{
+                                    id: '6-1-2-1',
+                                    code: 'و2 – د1',
+                                    label: 'المخطط الانسيابي',
+                                    icon: '📐',
+                                    skill: 'خوارزميات',
+                                    questions: [
+                                        { text: 'المخطط الانسيابي هو:', options: ['تمثيل بياني للخوارزمية', 'نوع برامج', 'لغة برمجة', 'جهاز'], correct: 0, hint: 'رسم بياني.', explanation: 'تمثيل بياني للخوارزمية.' },
+                                        { text: 'رمز البداية والنهاية:', options: ['البيضاوي', 'المستطيل', 'المعين', 'السهم'], correct: 0, hint: 'شكل بيضاوي.', explanation: 'البيضاوي للبداية والنهاية.' },
+                                        { text: 'رمز القرار في المخطط:', options: ['المعين', 'المستطيل', 'البيضاوي', 'السهم'], correct: 0, hint: 'شكل معين.', explanation: 'المعين للقرار (نعم/لا).' },
+                                        { text: 'رمز العملية الحسابية:', options: ['المستطيل', 'البيضاوي', 'المعين', 'الدائرة'], correct: 0, hint: 'شكل مستطيل.', explanation: 'المستطيل للعمليات الحسابية.' },
+                                        { text: 'الأسهم في المخطط تحدد:', options: ['اتجاه التدفق', 'البداية', 'النهاية', 'العمليات'], correct: 0, hint: 'اتجاه التنفيذ.', explanation: 'تحدد اتجاه تدفق التنفيذ.' }
+                                    ]
+                                }, {
+                                    id: '6-1-2-2',
+                                    code: 'و2 – د2',
+                                    label: 'الشروط والحلقات',
+                                    icon: '⚖️',
+                                    skill: 'شروط',
+                                    questions: [
+                                        { text: 'الشرط في الخوارزمية:', options: ['اختبار منطقي', 'نوع بيانات', 'خطوة تنفيذية', 'نتيجة'], correct: 0, hint: 'يقرر المسار.', explanation: 'اختبار يحدد المسار.' },
+                                        { text: 'الحلقة في الخوارزمية:', options: ['تكرار خطوات', 'النهاية', 'البداية', 'شرط'], correct: 0, hint: 'تعيد التنفيذ.', explanation: 'تكرار مجموعة من الخطوات.' },
+                                        { text: 'مثال على الشرط:', options: ['إذا كان العدد أكبر من 10', 'طباعة', 'جمع', 'إنهاء'], correct: 0, hint: 'اختبار منطقي.', explanation: 'اختبار مثل "إذا كان العدد أكبر من 10".' },
+                                        { text: 'الحلقة اللانهائية:', options: ['حلقة لا تنتهي', 'تنتهي بسرعة', 'فارغة', 'شرطية'], correct: 0, hint: 'لا تتوقف.', explanation: 'حلقة تستمر للأبد بسبب خطأ في الشرط.' },
+                                        { text: 'كيف تتجنب الحلقة اللانهائية؟', options: ['تغيير قيمة الشرط', 'استخدام حلقة فارغة', 'كتابة تعليقات', 'متغيرات كثيرة'], correct: 0, hint: 'ضمان التوقف.', explanation: 'التأكد من أن شرط التكرار سيتغير ليصبح خطأً.' }
+                                    ]
+                                }]
+                            }
+                        }
+                    },
+                    '2': {
+                        label: 'الترم الثاني',
+                        units: {
+                            '3': {
+                                label: 'الوحدة الثالثة: قواعد البيانات',
+                                lessons: [{
+                                    id: '6-2-3-1',
+                                    code: 'و3 – د1',
+                                    label: 'مفاهيم قواعد البيانات',
+                                    icon: '🗄️',
+                                    skill: 'قواعد بيانات',
+                                    questions: [
+                                        { text: 'قاعدة البيانات هي:', options: ['مجموعة منظمة من البيانات', 'نوع برامج', 'جهاز تخزين', 'لغة برمجة'], correct: 0, hint: 'تخزين منظم.', explanation: 'مجموعة منظمة من البيانات.' },
+                                        { text: 'الجدول في قاعدة البيانات:', options: ['مجموعة سجلات', 'استعلام', 'نوع برامج', 'جهاز'], correct: 0, hint: 'صفوف وأعمدة.', explanation: 'مجموعة من السجلات والحقول.' },
+                                        { text: 'السجل في قاعدة البيانات:', options: ['صف في الجدول', 'عمود', 'نوع برامج', 'جهاز'], correct: 0, hint: 'بيانات متكاملة.', explanation: 'صف يحتوي على بيانات عن عنصر واحد.' },
+                                        { text: 'الحقل في قاعدة البيانات:', options: ['عمود', 'صف', 'نوع برامج', 'جهاز'], correct: 0, hint: 'نوع بيانات معين.', explanation: 'عمود يمثل نوعاً معيناً من البيانات.' },
+                                        { text: 'مثال على قاعدة بيانات:', options: ['سجل الطلاب', 'مستند Word', 'صفحة ويب', 'لعبة'], correct: 0, hint: 'تنظيم بيانات.', explanation: 'سجل الطلاب هو مثال على قاعدة بيانات منظمة.' }
+                                    ]
+                                }, {
+                                    id: '6-2-3-2',
+                                    code: 'و3 – د2',
+                                    label: 'المفاتيح والاستعلامات',
+                                    icon: '🔑',
+                                    skill: 'استعلامات',
+                                    questions: [
+                                        { text: 'المفتاح الأساسي (Primary Key):', options: ['حقل فريد', 'نوع برامج', 'جهاز تخزين', 'لغة برمجة'], correct: 0, hint: 'معرف فريد.', explanation: 'حقل فريد يحدد كل سجل.' },
+                                        { text: 'الاستعلام (Query) هو:', options: ['طلب بيانات', 'نوع جداول', 'برنامج تشغيل', 'جهاز'], correct: 0, hint: 'سؤال عن البيانات.', explanation: 'طلب للحصول على بيانات محددة.' },
+                                        { text: 'لغة الاستعلام الشهيرة:', options: ['SQL', 'Python', 'Java', 'C++'], correct: 0, hint: 'لغة قواعد البيانات.', explanation: 'SQL هي اللغة القياسية.' },
+                                        { text: 'فائدة المفتاح الأساسي:', options: ['يمنع تكرار البيانات', 'يزيد السرعة', 'ينظم الجداول', 'جميع ما سبق'], correct: 3, hint: 'فوائد متعددة.', explanation: 'يمنع التكرار ويسرع البحث وينظم البيانات.' },
+                                        { text: 'استرجاع بيانات باستخدام:', options: ['SELECT', 'INSERT', 'DELETE', 'UPDATE'], correct: 0, hint: 'جلب البيانات.', explanation: 'SELECT يُستخدم لاسترجاع البيانات.' }
+                                    ]
+                                }]
+                            },
+                            '4': {
+                                label: 'الوحدة الرابعة: شبكات الحاسب',
+                                lessons: [{
+                                    id: '6-2-4-1',
+                                    code: 'و4 – د1',
+                                    label: 'مفاهيم الشبكات',
+                                    icon: '🌍',
+                                    skill: 'شبكات',
+                                    questions: [
+                                        { text: 'شبكة الحاسب هي:', options: ['ربط جهازين أو أكثر', 'نوع برامج', 'جهاز تخزين', 'لغة برمجة'], correct: 0, hint: 'ربط الأجهزة.', explanation: 'ربط جهازين أو أكثر لتبادل البيانات.' },
+                                        { text: 'الإنترنت هو:', options: ['شبكة عالمية', 'نوع برامج', 'جهاز تخزين', 'لغة برمجة'], correct: 0, hint: 'شبكة الشبكات.', explanation: 'شبكة عالمية تربط ملايين الحواسيب.' },
+                                        { text: 'البروتوكول في الشبكات:', options: ['قواعد الاتصال', 'نوع برامج', 'جهاز تخزين', 'لغة'], correct: 0, hint: 'لغة الحوار.', explanation: 'مجموعة القواعد التي تنظم الاتصال.' },
+                                        { text: 'عنوان IP هو:', options: ['عنوان رقمي فريد', 'اسم موقع', 'كلمة مرور', 'رقم هاتف'], correct: 0, hint: 'هوية الجهاز.', explanation: 'عنوان رقمي فريد يحدد كل جهاز.' },
+                                        { text: 'الشبكة المحلية (LAN):', options: ['منطقة محدودة', 'عالمية', 'لا سلكية', 'تخزين'], correct: 0, hint: 'مثل المدرسة.', explanation: 'تغطي منطقة محدودة مثل مبنى أو مدرسة.' }
+                                    ]
+                                }, {
+                                    id: '6-2-4-2',
+                                    code: 'و4 – د2',
+                                    label: 'أجهزة الشبكة',
+                                    icon: '📡',
+                                    skill: 'أجهزة',
+                                    questions: [
+                                        { text: 'المودم (Modem) يربط:', options: ['الحاسب بالإنترنت', 'نوع برامج', 'جهاز تخزين', 'شاشة'], correct: 0, hint: 'للاتصال.', explanation: 'جهاز يحول الإشارات للاتصال بالإنترنت.' },
+                                        { text: 'شبكة الواي فاي (Wi-Fi):', options: ['شبكة لا سلكية', 'سلكية', 'نوع برامج', 'جهاز تخزين'], correct: 0, hint: 'بدون أسلاك.', explanation: 'تقنية لاسلكية للاتصال بالإنترنت.' },
+                                        { text: 'الموجه (Router) يوجه:', options: ['البيانات بين الشبكات', 'نوع برامج', 'جهاز تخزين', 'شاشة'], correct: 0, hint: 'يوجه الحزم.', explanation: 'يوجه حزم البيانات بين الشبكات المختلفة.' },
+                                        { text: 'المبدل (Switch) يربط:', options: ['الأجهزة في شبكة محلية', 'نوع برامج', 'جهاز تخزين', 'شاشة'], correct: 0, hint: 'يصل الأجهزة.', explanation: 'يربط الأجهزة في شبكة محلية (LAN).' },
+                                        { text: 'الكابل في الشبكات:', options: ['وسيط لنقل البيانات', 'نوع برامج', 'جهاز تخزين', 'شاشة'], correct: 0, hint: 'ينقل الإشارات.', explanation: 'الوسيط المادي لنقل البيانات في الشبكة السلكية.' }
+                                    ]
+                                }]
+                            },
+                            '5': {
+                                label: 'الوحدة الخامسة: المواطنة الرقمية',
+                                lessons: [{
+                                    id: '6-2-5-1',
+                                    code: 'و5 – د1',
+                                    label: 'الأخلاقيات والسلوك',
+                                    icon: '👥',
+                                    skill: 'مواطنة',
+                                    questions: [
+                                        { text: 'المواطنة الرقمية هي:', options: ['استخدام التكنولوجيا بشكل مسؤول', 'شراء أجهزة', 'لعب', 'تصفح'], correct: 0, hint: 'سلوك مسؤول.', explanation: 'استخدام التكنولوجيا بشكل مسؤول وأخلاقي.' },
+                                        { text: 'حقوق النشر (Copyright):', options: ['حماية الملكية الفكرية', 'نوع برامج', 'جهاز تخزين', 'لغة'], correct: 0, hint: 'حماية الإبداع.', explanation: 'تحمي الأعمال الإبداعية من الاستخدام غير المصرح به.' },
+                                        { text: 'إذا وجدت معلومات خاطئة:', options: ['تتحقق من مصادر أخرى', 'تنشرها', 'تتجاهلها', 'تضيف تعليقاً'], correct: 0, hint: 'تأكد من الصحة.', explanation: 'تحقق من المعلومات من مصادر موثوقة.' },
+                                        { text: 'الانتحال في العالم الرقمي:', options: ['نسب عمل شخص آخر لنفسك', 'مشاركة صورة', 'كتابة تعليق', 'فتح حساب'], correct: 0, hint: 'سرقة الأفكار.', explanation: 'نسب عمل شخص آخر لنفسك دون إذن.' },
+                                        { text: 'كيف تكون مواطناً رقمياً إيجابياً؟', options: ['نشر المحتوى المفيد', 'احترام الآخرين', 'الحفاظ على الخصوصية', 'جميع ما سبق'], correct: 3, hint: 'سلوك متكامل.', explanation: 'يجمع بين كل هذه الصفات.' }
+                                    ]
+                                }, {
+                                    id: '6-2-5-2',
+                                    code: 'و5 – د2',
+                                    label: 'البصمة الرقمية',
+                                    icon: '🖐️',
+                                    skill: 'بصمة',
+                                    questions: [
+                                        { text: 'البصمة الرقمية هي:', options: ['أثر أنشطتك على الإنترنت', 'نوع برامج', 'جهاز تخزين', 'موقع'], correct: 0, hint: 'أثرك الرقمي.', explanation: 'كل ما تتركه من أنشطة على الإنترنت.' },
+                                        { text: 'سلوك إيجابي في المواطنة الرقمية؟', options: ['احترام الآخرين', 'التنمر', 'نشر معلومات خاصة', 'انتحال'], correct: 0, hint: 'سلوك حسن.', explanation: 'احترام الآخرين جزء من المواطنة الإيجابية.' },
+                                        { text: 'تؤثر البصمة الرقمية على:', options: ['فرص العمل', 'القبول الجامعي', 'سمعتك', 'جميع ما سبق'], correct: 3, hint: 'تأثيرات طويلة المدى.', explanation: 'تبقى على الإنترنت وقد تؤثر على مستقبلك.' },
+                                        { text: 'كيف تحسن بصمتك الرقمية؟', options: ['نشر محتوى مفيد', 'عدم نشر معلومات شخصية', 'التفكير قبل النشر', 'جميع ما سبق'], correct: 3, hint: 'تحسين الصورة.', explanation: 'كل هذه الإجراءات تحسن بصمتك الرقمية.' },
+                                        { text: 'معلومات لا تنشرها عبر الإنترنت:', options: ['رقم الهاتف', 'العنوان', 'كلمة المرور', 'جميع ما سبق'], correct: 3, hint: 'معلومات خاصة.', explanation: 'لا تنشر أبداً معلوماتك الشخصية الحساسة.' }
+                                    ]
+                                }]
+                            }
+                        }
+                    }
+                }
+            }
+        };
+
+        /* ============================================================
+           ENGINE (نفس المحرك السابق مع إصلاح النقاط والـ PDF)
+           ============================================================ */
+
+        const state = {
+            grade: 4,
+            term: '1',
+            unit: null,
+            lesson: null,
+            lessonData: null,
+            questions: [],
+            index: 0,
+            score: 0,
+            correct: 0,
+            streak: 0,
+            bestStreak: 0,
+            answered: false,
+            timeLeft: 20,
+            questionTime: 20,
+            timer: null,
+            timerEnabled: true,
+            startedAt: 0,
+            lastDuration: 0,
+            sound: localStorage.getItem('cs-game-sound') !== 'off',
+            certificate: null,
+            totalQuestions: 0,
+            studentName: localStorage.getItem('cs-student-name') || '',
+            teacherName: localStorage.getItem('cs-teacher-name') || '',
+            schoolName: localStorage.getItem('cs-school-name') || '',
+            isLoggedIn: !!localStorage.getItem('cs-student-name'),
+        };
+
+        const $ = id => document.getElementById(id);
+        const screens = { setup: $('setupScreen'), play: $('playScreen'), result: $('resultScreen') };
+
+        function shuffle(a) {
+            for (let i = a.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [a[i], a[j]] = [a[j], a[i]];
+            }
+            return a;
+        }
+
+        function showScreen(name) {
+            Object.entries(screens).forEach(([key, el]) => el.classList.toggle('active', key === name));
+            window.scrollTo({ top: 0 });
+        }
+
+        function toast(msg) {
+            const el = $('toast');
+            el.textContent = msg;
+            el.classList.add('show');
+            clearTimeout(el._hide);
+            el._hide = setTimeout(() => el.classList.remove('show'), 2200);
+        }
+
+        function playTone(kind) {
+            if (!state.sound || !window.AudioContext) return;
+            try {
+                const ctx = new AudioContext();
+                const osc = ctx.createOscillator();
+                const gain = ctx.createGain();
+                osc.connect(gain);
+                gain.connect(ctx.destination);
+                osc.type = 'sine';
+                osc.frequency.value = kind === 'correct' ? 660 : 190;
+                gain.gain.setValueAtTime(.1, ctx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(.001, ctx.currentTime + .2);
+                osc.start();
+                osc.stop(ctx.currentTime + .2);
+                osc.addEventListener('ended', () => ctx.close());
+            } catch (_) {}
+        }
+
+        function formatDuration(seconds) {
+            const s = Math.max(0, Math.round(seconds || 0));
+            const m = Math.floor(s / 60);
+            const sec = s % 60;
+            if (m === 0) return `${sec} ث`;
+            if (sec === 0) return `${m} د`;
+            return `${m} د ${sec} ث`;
+        }
+
+        function formatDate(d) {
+            if (!d) return '';
+            const date = new Date(d);
+            if (isNaN(date.getTime())) return '';
+            return date.toLocaleDateString('ar-SA', { year: 'numeric', month: 'long', day: 'numeric' });
+        }
+
+        function getGradeData() { return CURRICULUM[state.grade]; }
+
+        function getTermData() {
+            const grade = getGradeData();
+            if (!grade) return null;
+            return grade.terms[state.term];
+        }
+
+        function getUnits() {
+            const term = getTermData();
+            if (!term) return [];
+            return Object.keys(term.units).map(key => ({ id: key, ...term.units[key] }));
+        }
+
+        function getLessons(unitId) {
+            const term = getTermData();
+            if (!term) return [];
+            const unit = term.units[unitId];
+            if (!unit) return [];
+            return unit.lessons || [];
+        }
+
+        function renderUnits() {
+            const grid = $('unitGrid');
+            const units = getUnits();
+            if (units.length === 0) { grid.innerHTML =
+                    '<p style="color:var(--cs-text-muted);">لا توجد وحدات لهذا الترم.</p>'; return; }
+            grid.innerHTML = '';
+            units.forEach((unit, idx) => {
+                const btn = document.createElement('button');
+                btn.type = 'button';
+                btn.className = 'unit-card' + (idx === 0 ? ' selected' : '');
+                btn.dataset.unitId = unit.id;
+                btn.textContent = unit.label;
+                btn.addEventListener('click', () => {
+                    document.querySelectorAll('.unit-card').forEach(b => b.classList.remove('selected'));
+                    btn.classList.add('selected');
+                    state.unit = unit.id;
+                    renderLessons();
+                    updateBestScore();
+                });
+                grid.appendChild(btn);
+            });
+            state.unit = units[0].id;
+            renderLessons();
+        }
+
+        function renderLessons() {
+            const grid = $('lessonGrid');
+            const lessons = getLessons(state.unit);
+            if (lessons.length === 0) { grid.innerHTML =
+                    '<p style="color:var(--cs-text-muted);">لا توجد دروس لهذه الوحدة.</p>'; return; }
+            grid.innerHTML = '';
+            lessons.forEach((lesson, idx) => {
+                const btn = document.createElement('button');
+                btn.type = 'button';
+                btn.className = 'lesson-card' + (idx === 0 ? ' selected' : '');
+                btn.dataset.lessonId = lesson.id;
+                btn.innerHTML = `
+              <span class="lesson-code">${lesson.code}</span>
+              <span class="lesson-icon">${lesson.icon}</span>
+              <span>${lesson.label}</span>
+            `;
+                btn.addEventListener('click', () => {
+                    document.querySelectorAll('.lesson-card').forEach(b => b.classList.remove('selected'));
+                    btn.classList.add('selected');
+                    state.lesson = lesson.id;
+                    state.lessonData = lesson;
+                    updateBestScore();
+                });
+                grid.appendChild(btn);
+            });
+            state.lesson = lessons[0].id;
+            state.lessonData = lessons[0];
+            updateBestScore();
+        }
+
+        // Grade & Term selection
+        document.querySelectorAll('.grade-card').forEach(btn => {
+            btn.addEventListener('click', function() {
+                document.querySelectorAll('.grade-card').forEach(b => {
+                    b.classList.remove('selected');
+                    b.setAttribute('aria-checked', 'false');
+                });
+                this.classList.add('selected');
+                this.setAttribute('aria-checked', 'true');
+                state.grade = Number(this.dataset.grade);
+                state.term = '1';
+                document.querySelectorAll('.term-card').forEach(b => {
+                    b.classList.toggle('selected', b.dataset.term === '1');
+                    b.setAttribute('aria-checked', b.dataset.term === '1' ? 'true' : 'false');
+                });
+                renderUnits();
+                updateBestScore();
+            });
+        });
+
+        document.querySelectorAll('.term-card').forEach(btn => {
+            btn.addEventListener('click', function() {
+                document.querySelectorAll('.term-card').forEach(b => {
+                    b.classList.remove('selected');
+                    b.setAttribute('aria-checked', 'false');
+                });
+                this.classList.add('selected');
+                this.setAttribute('aria-checked', 'true');
+                state.term = this.dataset.term;
+                renderUnits();
+                updateBestScore();
+            });
+        });
+
+        function updateBestScore() {
+            const key = `cs-best-${state.grade}-${state.term}-${state.unit}-${state.lesson || 'none'}`;
+            const best = Number(localStorage.getItem(key) || 0);
+            $('bestScoreText').innerHTML = `🏅 أفضل نتيجة: <strong>${best}</strong> نقطة`;
+        }
+
+        // Timer toggle
+        const toggleEl = $('timerToggle');
+        const timerStatusLabel = $('timerStatusLabel');
+        toggleEl.addEventListener('click', function() {
+            state.timerEnabled = !state.timerEnabled;
+            this.classList.toggle('active', state.timerEnabled);
+            timerStatusLabel.textContent = state.timerEnabled ? 'مفعّل' : 'معطّل';
+        });
+
+        // Sound
+        $('soundButton').addEventListener('click', function() {
+            state.sound = !state.sound;
+            localStorage.setItem('cs-game-sound', state.sound ? 'on' : 'off');
+            this.textContent = state.sound ? '🔊' : '🔇';
+        });
+        if (localStorage.getItem('cs-game-sound') === 'off') {
+            state.sound = false;
+            $('soundButton').textContent = '🔇';
+        }
+
+        // LOGIN / LOGOUT
+        const loginBtn = $('loginBtn');
+        const loginModal = $('loginModal');
+        const loginClose = $('loginModalClose');
+        const loginCancel = $('loginCancelBtn');
+        const loginSave = $('loginSaveBtn');
+        const studentNameInput = $('studentName');
+        const teacherNameInput = $('teacherName');
+        const schoolNameInput = $('schoolName');
+
+        function updateLoginUI() {
+            if (state.isLoggedIn && state.studentName) {
+                loginBtn.textContent = `👤 ${state.studentName} (تسجيل خروج)`;
+                loginBtn.classList.add('logged-in');
+                $('playerChip').textContent = `👤 ${state.studentName}`;
+            } else {
+                loginBtn.textContent = '👤 تسجيل دخول';
+                loginBtn.classList.remove('logged-in');
+                $('playerChip').textContent = '🖥️ زائر';
+            }
+        }
+
+        function openLoginModal() {
+            if (state.isLoggedIn) {
+                if (confirm('هل تريد تسجيل الخروج؟')) {
+                    state.isLoggedIn = false;
+                    state.studentName = '';
+                    state.teacherName = '';
+                    state.schoolName = '';
+                    localStorage.removeItem('cs-student-name');
+                    localStorage.removeItem('cs-teacher-name');
+                    localStorage.removeItem('cs-school-name');
+                    updateLoginUI();
+                    toast('تم تسجيل الخروج.');
+                }
+                return;
+            }
+            studentNameInput.value = state.studentName || '';
+            teacherNameInput.value = state.teacherName || '';
+            schoolNameInput.value = state.schoolName || '';
+            loginModal.hidden = false;
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeLoginModal() {
+            loginModal.hidden = true;
+            document.body.style.overflow = '';
+        }
+
+        function saveLoginData() {
+            const name = studentNameInput.value.trim();
+            const teacher = teacherNameInput.value.trim();
+            const school = schoolNameInput.value.trim();
+            if (!name || !teacher || !school) {
+                toast('الرجاء ملء جميع الحقول.');
+                return;
+            }
+            state.studentName = name;
+            state.teacherName = teacher;
+            state.schoolName = school;
+            state.isLoggedIn = true;
+            localStorage.setItem('cs-student-name', name);
+            localStorage.setItem('cs-teacher-name', teacher);
+            localStorage.setItem('cs-school-name', school);
+            updateLoginUI();
+            toast('تم حفظ البيانات بنجاح!');
+            closeLoginModal();
+        }
+
+        loginBtn.addEventListener('click', openLoginModal);
+        loginClose.addEventListener('click', closeLoginModal);
+        loginCancel.addEventListener('click', closeLoginModal);
+        loginSave.addEventListener('click', saveLoginData);
+        loginModal.addEventListener('click', (e) => { if (e.target === loginModal) closeLoginModal(); });
+        updateLoginUI();
+
+        // START GAME
+        $('startButton').addEventListener('click', function() {
+            const lesson = state.lessonData;
+            if (!lesson) { toast('الرجاء اختيار درس أولاً.'); return; }
+            const qs = lesson.questions;
+            if (!qs || qs.length === 0) { toast('لا توجد أسئلة لهذا الدرس.'); return; }
+            const shuffled = shuffle(qs);
+            const count = Math.min(shuffled.length, 5);
+            state.questions = shuffled.slice(0, count);
+            state.totalQuestions = state.questions.length;
+            state.index = 0;
+            state.score = 0;
+            state.correct = 0;
+            state.streak = 0;
+            state.bestStreak = 0;
+            state.answered = false;
+            state.startedAt = Date.now();
+            state.certificate = null;
+            $('scoreValue').textContent = '0';
+            $('streakValue').textContent = '0';
+            $('levelLabel').textContent = `${lesson.code} - ${lesson.label}`;
+            showScreen('play');
+            renderQuestion();
+        });
+
+        function renderQuestion() {
+            clearInterval(state.timer);
+            state.answered = false;
+
+            const q = state.questions[state.index];
+            const total = state.totalQuestions;
+
+            $('questionCounter').textContent = `السؤال ${state.index + 1} من ${total}`;
+            $('progressBar').style.width = `${(state.index / total) * 100}%`;
+            $('questionSkill').textContent = q.skill || 'المهارة';
+            $('questionPoints').textContent = `+${Math.round(100)} نقطة`;
+            $('questionText').textContent = q.text;
+
+            $('feedback').hidden = true;
+            $('feedback').classList.remove('wrong');
+
+            state.questionTime = state.timerEnabled ? 20 : 9999;
+            state.timeLeft = state.questionTime;
+            updateTimerUI();
+
+            const grid = $('answerGrid');
+            grid.innerHTML = '';
+            const options = q.options || [];
+            const shuffledOptions = shuffle(options.map((label, idx) => ({ label, idx })));
+            shuffledOptions.forEach((item, pos) => {
+                const btn = document.createElement('button');
+                btn.type = 'button';
+                btn.className = 'answer-button';
+                btn.innerHTML =
+                    `<span class="answer-key">${'أبجد'[pos] || pos + 1}</span> <span>${item.label}</span>`;
+                btn.dataset.optionIdx = item.idx;
+                btn.addEventListener('click', () => handleAnswer(item.idx, btn));
+                grid.appendChild(btn);
+            });
+
+            if (state.timerEnabled) {
+                state.timer = setInterval(() => {
+                    state.timeLeft -= 1;
+                    updateTimerUI();
+                    if (state.timeLeft <= 0) {
+                        clearInterval(state.timer);
+                        handleAnswer(null, null);
+                    }
+                }, 1000);
+            } else {
+                $('timerValue').textContent = '∞';
+                $('timerLabel').textContent = '⏱️ غير محدود';
+            }
+        }
+
+        function updateTimerUI() {
+            if (!state.timerEnabled) return;
+            const val = Math.max(0, state.timeLeft);
+            $('timerValue').textContent = val;
+            $('timerLabel').textContent = '⏱️ الوقت';
+            const percent = Math.max(0, (state.timeLeft / state.questionTime) * 100);
+            $('timerRing').style.setProperty('--timer-progress', `${percent}%`);
+            const ring = $('timerRing');
+            if (percent < 20) ring.style.borderTopColor = '#f87171';
+            else if (percent < 50) ring.style.borderTopColor = '#fbbf24';
+            else ring.style.borderTopColor = '#4fc3f7';
+        }
+
+        function handleAnswer(selectedIdx, targetButton) {
+            if (state.answered) return;
+            state.answered = true;
+            clearInterval(state.timer);
+
+            const q = state.questions[state.index];
+            const buttons = $('answerGrid').querySelectorAll('button');
+            buttons.forEach(b => b.disabled = true);
+
+            const correctIdx = q.correct;
+            let isCorrect = false;
+
+            buttons.forEach((b, i) => {
+                const optIdx = Number(b.dataset.optionIdx);
+                if (optIdx === correctIdx) {
+                    b.classList.add('correct');
+                }
+                if (selectedIdx !== null && optIdx === selectedIdx && selectedIdx === correctIdx) {
+                    isCorrect = true;
+                }
+                if (selectedIdx !== null && optIdx === selectedIdx && selectedIdx !== correctIdx) {
+                    b.classList.add('wrong');
+                }
+            });
+
+            if (isCorrect) {
+                state.correct += 1;
+                state.streak += 1;
+                state.bestStreak = Math.max(state.bestStreak, state.streak);
+                const bonus = Math.min(50, Math.max(0, state.streak - 1) * 10);
+                state.score += Math.round(100 + bonus);
+                $('feedbackIcon').textContent = '✅';
+                $('feedbackTitle').textContent = state.streak >= 3 ? `🔥 سلسلة ${state.streak}!` : 'إجابة صحيحة!';
+                playTone('correct');
+                $('feedback').classList.remove('wrong');
+            } else {
+                state.streak = 0;
+                $('feedbackIcon').textContent = '❌';
+                $('feedbackTitle').textContent = 'إجابة خاطئة';
+                $('feedback').classList.add('wrong');
+                playTone('wrong');
+            }
+
+            $('scoreValue').textContent = state.score;
+            $('streakValue').textContent = state.streak;
+            $('feedbackExplanation').textContent = q.explanation || '';
+
+            $('feedback').hidden = false;
+            const nextBtn = $('nextButton');
+            nextBtn.textContent = state.index + 1 >= state.totalQuestions ? '📊 النتيجة' : '← التالي';
+            nextBtn.focus();
+        }
+
+        $('nextButton').addEventListener('click', function() {
+            if (!state.answered) return;
+            state.index += 1;
+            if (state.index >= state.totalQuestions) {
+                finishGame();
+            } else {
+                renderQuestion();
+            }
+        });
+
+        function finishGame() {
+            clearInterval(state.timer);
+            const duration = Math.max(1, Math.round((Date.now() - state.startedAt) / 1000));
+            state.lastDuration = duration;
+            const accuracy = state.totalQuestions > 0 ? Math.round((state.correct / state.totalQuestions) * 100) : 0;
+
+            const key = `cs-best-${state.grade}-${state.term}-${state.unit}-${state.lesson}`;
+            const prev = Number(localStorage.getItem(key) || 0);
+            if (state.score > prev) localStorage.setItem(key, String(state.score));
+
+            $('finalScore').textContent = state.score;
+            $('correctResult').textContent = `${state.correct} / ${state.totalQuestions}`;
+            $('accuracyResult').textContent = `${accuracy}%`;
+            $('streakResult').textContent = `${state.bestStreak} 🔥`;
+            $('durationResult').textContent = formatDuration(duration);
+
+            const badge = accuracy >= 90 ? '🏆' : accuracy >= 70 ? '⭐' : '🚀';
+            const title = accuracy >= 90 ? 'مبارك التفوق!' : accuracy >= 70 ? 'أحسنتِ!' : 'جميل، استمري!';
+            const msg = accuracy >= 90 ? 'أصبحتِ خبيرة في هذا الدرس.' :
+                accuracy >= 70 ? 'نتيجة جميلة، واصلي التميز.' :
+                'كل جولة تُقرّبكِ من الإتقان.';
+
+            $('resultBadge').textContent = badge;
+            $('resultTitle').textContent = title;
+            $('resultMessage').textContent = msg;
+
+            const gradeLabel = getGradeData()?.label || '';
+            const termLabel = getTermData()?.label || '';
+            const unitLabel = getUnits().find(u => u.id === state.unit)?.label || '';
+            const lessonLabel = state.lessonData?.label || '';
+
+            state.certificate = {
+                studentName: state.studentName || 'الزائرة',
+                lessonName: `${gradeLabel} - ${termLabel} - ${unitLabel} - ${lessonLabel}`,
+                grade: state.grade,
+                gradeLabel: gradeLabel,
+                term: state.term,
+                termLabel: termLabel,
+                unit: state.unit,
+                unitLabel: unitLabel,
+                lessonLabel: lessonLabel,
+                correctCount: state.correct,
+                questionCount: state.totalQuestions,
+                score: state.score,
+                durationSeconds: duration,
+                issuedAt: new Date().toISOString(),
+                teacherName: state.teacherName || 'المعلمة',
+                schoolLeaderName: state.schoolName || 'المدرسة',
+                enabled: true,
+            };
+
+            $('showCertButton').hidden = false;
+            createConfetti();
+            showScreen('result');
+            playTone('finish');
+        }
+
+        function createConfetti() {
+            const colors = ['#4fc3f7', '#5b7cfa', '#fbbf24', '#4ade80', '#f87171', '#f472b6'];
+            const container = $('confetti');
+            container.innerHTML = '';
+            for (let i = 0; i < 50; i++) {
+                const el = document.createElement('i');
+                el.style.left = `${Math.random() * 100}%`;
+                el.style.background = colors[i % colors.length];
+                el.style.width = `${4 + Math.random() * 8}px`;
+                el.style.height = `${4 + Math.random() * 8}px`;
+                el.style.animationDuration = `${2.5 + Math.random() * 2}s`;
+                el.style.animationDelay = `${Math.random() * 1.5}s`;
+                el.style.borderRadius = Math.random() > 0.5 ? '50%' : '2px';
+                container.appendChild(el);
+            }
+        }
+
+        $('replayButton').addEventListener('click', () => { showScreen('setup');
+            updateBestScore(); });
+        $('backToHomeButton').addEventListener('click', () => { showScreen('setup');
+            updateBestScore(); });
+
+        $('quitButton').addEventListener('click', function() {
+            if (confirm('إنهاء الجولة الحالية؟')) {
+                clearInterval(state.timer);
+                showScreen('setup');
+                updateBestScore();
+            }
+        });
+
+        $('gameBackLink').addEventListener('click', () => {
+            if (screens.play.classList.contains('active')) {
+                if (confirm('إنهاء الجولة والعودة؟')) {
+                    clearInterval(state.timer);
+                    showScreen('setup');
+                    updateBestScore();
+                }
+            } else {
+                showScreen('setup');
+                updateBestScore();
+            }
+        });
+
+        // ============================================================
+        // CERTIFICATE SYSTEM
+        // ============================================================
+
+        function mountCertificate(root) {
+            if (!root) return;
+            if (root.dataset.madarCertificateReady === 'true') return;
+            root.innerHTML = `
+            <div class="cert-modal-overlay" id="certModal" hidden>
+              <div class="cert-modal-container">
+                <div class="cert-modal-header no-print">
+                  <h3>📜 شهادة إتقان</h3>
+                  <div class="btn-group">
+                    <button class="btn-print" id="printCertButton">🖨️ طباعة</button>
+                    <button class="btn-pdf" id="pdfCertButton">📄 حفظ PDF</button>
+                    <button class="btn-close" id="closeCertButton">✕ إغلاق</button>
+                  </div>
+                </div>
+                <div class="certificate-paper-exact" id="certificatePaper">
+                  <div class="exact-cert-border">
+                    <div class="exact-cert-inner">
+                      <div class="exact-cert-content">
+                        <div class="exact-cert-topbar">
+                          <div class="cert-brand-lockup">
+                            <div class="cert-brand-copy"><strong>م<span>برمج المستقبل</span></strong><small>منصة الحاسب للألعاب التفاعلية</small></div>
+                          </div>
+                          <div class="cert-badge">🏅 شهادة إتقان</div>
+                        </div>
+                        <h1 class="exact-cert-title">شهادة إتقان</h1>
+                        <p class="exact-cert-sub">تمنح منصة مبرمج المستقبل هذه الشهادة للطالبة</p>
+                        <h2 class="exact-cert-student"><span class="cert-student-name" id="displayCertStudentName">—</span></h2>
+                        <p class="exact-cert-lesson">بعد إتمام <span class="cert-lesson-name" id="displayCertLessonName">—</span></p>
+                        <div class="certificate-facts">
+                          <span>الصف <strong id="displayCertGrade">—</strong></span>
+                          <span>الدرجة <strong id="displayCertGradeScore">—</strong></span>
+                          <span>النقاط <strong id="displayCertScore">—</strong></span>
+                          <span>الوقت <strong id="displayCertDuration">—</strong></span>
+                        </div>
+                        <p class="certificate-issued" id="displayCertIssuedAt"></p>
+                      </div>
+                      <div class="exact-cert-footer">
+                        <div class="exact-sig-col"><span class="exact-sig-label">المعلمة</span><strong class="exact-sig-value" id="displayCertTeacher">—</strong><div class="exact-sig-line"></div></div>
+                        <div class="exact-sig-col"><span class="exact-sig-label">المديرة</span><strong class="exact-sig-value" id="displayCertPrincipal">—</strong><div class="exact-sig-line"></div></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>`;
+            root.dataset.madarCertificateReady = 'true';
+        }
+
+        function certText(id, val) {
+            const el = document.getElementById(id);
+            if (el) el.textContent = String(val ?? '—').trim() || '—';
+        }
+
+        function renderCertificate(cert) {
+            const c = cert || {};
+            const correct = Number(c.correctCount);
+            const total = Number(c.questionCount);
+            const gradeStr = Number.isInteger(correct) && total > 0 ? `${correct} / ${total}` : '';
+            certText('displayCertStudentName', c.studentName || 'الزائرة');
+            certText('displayCertLessonName', c.lessonName || 'الدرس');
+            certText('displayCertGrade', c.gradeLabel || `الصف ${c.grade || ''}`);
+            certText('displayCertGradeScore', gradeStr);
+            certText('displayCertScore', c.score || c.score === 0 ? `${c.score} نقطة` : '');
+            certText('displayCertDuration', c.durationSeconds ? formatDuration(c.durationSeconds) : '');
+            certText('displayCertTeacher', c.teacherName || 'المعلمة');
+            certText('displayCertPrincipal', c.schoolLeaderName || 'المدرسة');
+            const issued = c.issuedAt ? new Date(c.issuedAt) : null;
+            const issuedEl = document.getElementById('displayCertIssuedAt');
+            if (issuedEl) {
+                issuedEl.textContent = issued && !isNaN(issued.getTime()) ?
+                    `أُصدرت في ${formatDate(issued)}` :
+                    '';
+            }
+        }
+
+        function openCertificate(cert) {
+            renderCertificate(cert);
+            const modal = document.getElementById('certModal');
+            if (modal) modal.hidden = false;
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeCertificate() {
+            const modal = document.getElementById('certModal');
+            if (modal) modal.hidden = true;
+            document.body.style.overflow = '';
+        }
+
+        function downloadPDF() {
+            const paper = document.getElementById('certificatePaper');
+            if (!paper) { toast('الرجاء عرض الشهادة أولاً.'); return; }
+            const opt = {
+                margin: 0.5,
+                filename: 'شهادة_إتقان_مبرمج_المستقبل.pdf',
+                image: { type: 'jpeg', quality: 0.98 },
+                html2canvas: { scale: 2, letterRendering: true },
+                jsPDF: { unit: 'in', format: 'a4', orientation: 'portrait' }
+            };
+            html2pdf().set(opt).from(paper).save();
+        }
+
+        const mountEl = document.getElementById('sharedCertificateMount');
+        mountCertificate(mountEl);
+
+        $('showCertButton').addEventListener('click', () => {
+            if (state.certificate) openCertificate(state.certificate);
+        });
+
+        document.addEventListener('click', (e) => {
+            if (e.target.id === 'closeCertButton') closeCertificate();
+            if (e.target.id === 'printCertButton') { window.print(); }
+            if (e.target.id === 'pdfCertButton') { downloadPDF(); }
+        });
+        document.addEventListener('click', (e) => {
+            const overlay = document.getElementById('certModal');
+            if (overlay && !overlay.hidden && e.target === overlay) closeCertificate();
+        });
+
+        // ============================================================
+        // INIT
+        // ============================================================
+        renderUnits();
+        updateBestScore();
+        showScreen('setup');
+        timerStatusLabel.textContent = state.timerEnabled ? 'مفعّل' : 'معطّل';
+        toggleEl.classList.toggle('active', state.timerEnabled);
+
+        console.log('✅ منصة الحاسب (جميع الوحدات والدروس) جاهزة!');
+    </script>
+</body>
+</html>
